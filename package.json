@@ -1,5 +1,5 @@
 {
-  "name": "myhelpers",
+  "name": "@n3okill/utils",
   "version": "1.0.0",
   "description": "Many javascript helpers",
   "main": "dist/index.js",
