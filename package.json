@@ -12,7 +12,15 @@
       "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js"
     }
+  },  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n3okill/utils.git"
   },
+  "bugs": {
+    "url": "https://github.com/n3okill/utils/issues"
+  },
+  "homepage": "https://github.com/n3okill/utils#readme",
   "author": "Joao Parreira",
   "license": "MIT",
   "scripts": {
