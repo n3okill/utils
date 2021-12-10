@@ -2,8 +2,15 @@
   "name": "@n3okill/utils",
   "version": "1.0.0",
   "description": "Many javascript helpers",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "private":false,
+  "module": "dist/mjs/index.js",
+  "main": "dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "author": "Joao Parreira",
   "license": "MIT",
   "scripts": {
