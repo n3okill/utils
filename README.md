@@ -2,9 +2,11 @@
 
 Typescript Utilities library
 
-## Badges
+---
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7bea274eb7aa437eb314d154a9158e50)](https://www.codacy.com/gh/n3okill/myhelpers/dashboard?utm_source=github.com&utm_medium=referral&utm_content=n3okill/myhelpers&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3651240eb02346f3ba660c225498ce20)](https://www.codacy.com/gh/n3okill/utils/dashboard?utm_source=github.com&utm_medium=referral&utm_content=n3okill/utils&utm_campaign=Badge_Grade) ![Test Status](https://github.com/n3okill/utils/actions/workflows/test.yml/badge.svg)
+
+---
 
 ## Description
 

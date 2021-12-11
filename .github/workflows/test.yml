@@ -1,4 +1,4 @@
-name: MyHelpers Test
+name: Utils Tests
 on:
     push:
         branches: ["master", "main"]

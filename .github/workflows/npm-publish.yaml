@@ -1,4 +1,4 @@
-name: Npm Publish
+name: Npm Publish Utils
 on:
     push:
         branches: ["master", "main"]
