@@ -1,4 +1,4 @@
-# MyHelpers
+# Utils
 
 Typescript Utilities library
 
@@ -10,7 +10,7 @@ Typescript Utilities library
 
 ## Description
 
-MyHelpers is intended to make development of NodeJs apps faster & easier by defining various methods to work with arrays, string, objects, among others.
+Utils is intended to make development of NodeJs apps faster & easier by defining various methods to work with arrays, string, objects, among others.
 
 The functions in this library are expected to be static for the forseable future, only having improvements but never changing input parameters, return values or types.
 
@@ -19,19 +19,19 @@ The functions in this library are expected to be static for the forseable future
 Install the package
 
 ```js
-npm install myhelpers
+npm install @n3okill/utils
 ```
 
 There's multiple ways to use the library:
 
 ```js
-import * as Util from "myhelpers";
+import * as Util from "@n3okill/utils";
 ```
 
 or
 
 ```js
-import { Type, ArrayUtil } from "myhelpers";
+import { Type, ArrayUtil } from "@n3okill/utils";
 ```
 
 ## Runing tests
@@ -44,11 +44,11 @@ import { Type, ArrayUtil } from "myhelpers";
 
 If you find a problem with the package you can
 
--   [Submit a Bug](https://github.com/n3okill/myhelpers/issues)
+-   [Submit a Bug](https://github.com/n3okill/utils/issues)
 
 or even make a
 
--   [Pull request](https://github.com/n3okill/myhelpers/pulls)
+-   [Pull request](https://github.com/n3okill/utils/pulls)
 
 ### Proposing a new helper
 
