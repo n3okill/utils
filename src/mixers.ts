@@ -181,7 +181,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
                 return Other.cloneTypedArray(_source as Type.TypedArray, transform) as unknown as T;
             case Type.EnumTypes.Function:
             case Type.EnumTypes.AsyncFunction:
-                target = _source;
+                return (_source as CallableFunction).bind(null) as unknown as T;
                 break;
             case Type.EnumTypes.Symbol:
                 return Other.cloneSymbol(_source as symbol, transform as (value: symbol) => symbol) as unknown as T;

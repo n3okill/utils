@@ -1,4 +1,5 @@
 import * as Type from "../src/type";
+import * as fs from "fs";
 
 describe("Utilities", (): void => {
     describe("> Type", (): void => {
@@ -75,6 +76,7 @@ describe("Utilities", (): void => {
                 expect(isAsyncFunction(null)).toBeFalsy();
                 expect(isAsyncFunction({})).toBeFalsy();
                 expect(isAsyncFunction([])).toBeFalsy();
+                expect(isAsyncFunction(fs.promises.access)).toBeTruthy();
             });
         });
         describe("isArray", (): void => {

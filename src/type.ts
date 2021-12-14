@@ -1,6 +1,7 @@
 import * as StringUtil from "./string_util";
 import * as ArrayUtil from "./array_util";
 import * as ObjectUtil from "./object_util";
+import * as util from "util";
 
 export type TObjectKey = string | symbol | number;
 export type TObject = Record<TObjectKey, unknown>;
@@ -297,11 +298,25 @@ export function isFunctionType(arg: unknown): boolean {
  * @returns {boolean}
  */
 export function isAsyncFunction(arg: unknown): boolean {
-    try {
-        return isFunction(arg) && "then" in (arg as CallableFunction)();
-    } catch (err) {
-        return false;
+    const AsyncFunction = (async () => {
+        //empty
+    }).constructor;
+    if (
+        (arg instanceof AsyncFunction && AsyncFunction !== Function) ||
+        arg instanceof Promise ||
+        ("isAsyncFunction" in util.types && util.types.isAsyncFunction(arg))
+    ) {
+        return true;
     }
+    let promise;
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        promise = (arg as CallableFunction)();
+    } catch (err) {
+        //empty
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+    return promise && isFunction(promise.then) && promise[Symbol.toStringTag] === "Promise";
 }
 
 /**
@@ -541,6 +556,8 @@ export function kindOf(arg: unknown): string {
 export function getEnumType(arg: unknown): EnumTypes {
     if (isArray(arg)) {
         return EnumTypes.Array;
+    } else if (isPromise(arg)) {
+        return EnumTypes.Promise;
     } else if (isAsyncFunction(arg)) {
         return EnumTypes.AsyncFunction;
     } else if (isBoolean(arg)) {
@@ -563,8 +580,6 @@ export function getEnumType(arg: unknown): EnumTypes {
         return EnumTypes.Object;
     } else if (isPlainObject(arg)) {
         return EnumTypes.PlainObject;
-    } else if (isPromise(arg)) {
-        return EnumTypes.Promise;
     } else if (isRegExp(arg)) {
         return EnumTypes.RegExp;
     } else if (isSet(arg)) {
