@@ -1,6 +1,6 @@
 {
   "name": "@n3okill/utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Many javascript helpers",
   "publishConfig": {
     "access": "public"
@@ -32,7 +32,7 @@
     "build:package.json": "node ./build.cjs",
     "build": "npm run clean:dist && npm run build:mjs && npm run build:cjs && npm run build:package.json",
     "lint": "eslint src --ext .ts && eslint tests --ext .ts",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' 'tests/**/*.ts' --write",
+    "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" --write",
     "pretest": "npm run build",
     "unit": "jest",
     "unit:coverage": "jest --coverage --reporter=lcov --reporter=text",
