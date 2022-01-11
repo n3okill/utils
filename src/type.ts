@@ -1,6 +1,6 @@
 import * as StringUtil from "./string_util.js";
 import * as ArrayUtil from "./array_util.js";
-import * as ObjectUtil from "./object_util";
+import * as ObjectUtil from "./object_util.js";
 import * as util from "util";
 
 export type TObjectKey = string | symbol | number;
