@@ -1,5 +1,5 @@
 import { sep as Separator } from "path";
-import * as StringUtil from "./string_util";
+import * as StringUtil from "./string_util.js";
 
 /**
  * Detects buffer enconding

@@ -5,6 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "module": "dist/mjs/index.js",
   "main": "dist/cjs/index.js",
   "exports": {
@@ -28,12 +29,13 @@
     "clean:dist": "rimraf ./dist",
     "build:mjs": "npx tsc -p tsconfig-mjs.json",
     "build:cjs": "npx tsc -p tsconfig-cjs.json",
-    "build:package.json": "node ./build.js",
+    "build:package.json": "node ./build.cjs",
     "build": "npm run clean:dist && npm run build:mjs && npm run build:cjs && npm run build:package.json",
     "lint": "eslint src --ext .ts && eslint tests --ext .ts",
     "format": "prettier --config .prettierrc 'src/**/*.ts' 'tests/**/*.ts' --write",
     "pretest": "npm run build",
-    "unit": "jest --coverage --reporter=lcov --reporter=text",
+    "unit": "jest",
+    "unit:coverage": "jest --coverage --reporter=lcov --reporter=text",
     "test": "npm run lint && npm run unit",
     "prepublishOnly": "npm test",
     "prepare": "npm run build",
@@ -44,19 +46,19 @@
     "typedoc": "typedoc --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.12",
-    "@typescript-eslint/eslint-plugin": "^5.6.0",
-    "@typescript-eslint/parser": "^5.6.0",
-    "eslint": "^8.4.1",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^25.3.0",
-    "jest": "^27.4.3",
+    "eslint-plugin-jest": "^25.3.4",
+    "jest": "^27.4.7",
     "prettier": "^2.5.1",
-    "ts-jest": "^27.1.1",
+    "ts-jest": "^27.1.2",
     "typedoc": "^0.22.5",
-    "typedoc-plugin-markdown": "^3.11.3",
-    "typescript": "^4.5.2"
+    "typedoc-plugin-markdown": "^3.11.11",
+    "typescript": "^4.5.4"
   },
   "files": [
     "dist/**/*"

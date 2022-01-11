@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { TObject } from "../src/type";
 import * as ObjectUtil from "../src/object_util";
 import * as fs from "fs";
@@ -106,7 +108,8 @@ describe("Utilities", (): void => {
                     [2],
                 ];
                 const b = [c, 2, 3, 4];
-                const a: { b: typeof b; c: typeof c; loop?: unknown; loop2?: unknown } = { b: b, c: c };
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const a: any = { b: b, c: c };
                 a.loop = a;
                 a.loop2 = a;
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
@@ -118,7 +121,7 @@ describe("Utilities", (): void => {
                 //only object is cloned not inner properties check: deepClone
                 expect(resultA.c).toBe(a.c);
                 expect(resultA.c).toBe(resultA.b[0]);
-                expect(resultA.c.loop?.loop?.aloop).toBe(a);
+                expect(resultA.c.loop.loop.aloop).toBe(a);
                 expect(resultA.c[0]).toBe(a.c[0]);
             });
             test("custom class extend map", (): void => {

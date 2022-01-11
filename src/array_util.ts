@@ -1,7 +1,7 @@
-import * as Type from "./type";
-import * as Mixers from "./mixers";
-import * as NumberUtil from "./number_util";
-import { _transformFunctionType } from "./_internal";
+import * as Type from "./type.js";
+import * as Mixers from "./mixers.js";
+import * as NumberUtil from "./number_util.js";
+import { _transformFunctionType } from "./_internal.js";
 
 /**
  * @internal

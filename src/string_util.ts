@@ -1,6 +1,6 @@
-import * as Type from "./type";
+import * as Type from "./type.js";
 import * as NodePath from "path";
-import * as ArrayUtil from "./array_util";
+import * as ArrayUtil from "./array_util.js";
 
 /**
  * @internal

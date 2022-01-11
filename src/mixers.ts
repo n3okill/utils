@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as Type from "./type";
-import * as Other from "./other";
-import { _checkTransform } from "./_internal";
+import * as Type from "./type.js";
+import * as Other from "./other.js";
+import { _checkTransform } from "./_internal.js";
 
 export type OptionalPropertyNames<T> = { [K in keyof T]-?: {} extends { [P in K]: T[K] } ? K : never }[keyof T];
 

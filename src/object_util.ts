@@ -1,6 +1,6 @@
-import { TObject, TObjectKey, isObject } from "./type";
-import { _transformFunctionType } from "./_internal";
-import { Mixers } from ".";
+import { TObject, TObjectKey, isObject } from "./type.js";
+import { _transformFunctionType } from "./_internal.js";
+import * as Mixers from "./mixers.js";
 
 /**
  * Check if an object is empty

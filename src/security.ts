@@ -1,5 +1,5 @@
 import * as NodeCrypto from "crypto";
-import * as StringUtil from "./string_util";
+import * as StringUtil from "./string_util.js";
 
 /**
  * Generate random base64 key

@@ -1,4 +1,4 @@
-import { isFunction } from "./type";
+import { isFunction } from "./type.js";
 
 /**
  * @internal

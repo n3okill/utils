@@ -1,5 +1,5 @@
-import * as StringUtil from "./string_util";
-import * as ArrayUtil from "./array_util";
+import * as StringUtil from "./string_util.js";
+import * as ArrayUtil from "./array_util.js";
 import * as ObjectUtil from "./object_util";
 import * as util from "util";
 

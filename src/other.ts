@@ -1,6 +1,6 @@
-import { Mixers } from ".";
-import * as Type from "./type";
-import { _checkTransform, _transformFunctionType } from "./_internal";
+import * as Mixers from "./mixers.js";
+import * as Type from "./type.js";
+import { _checkTransform, _transformFunctionType } from "./_internal.js";
 
 /**
  * Clone buffer
