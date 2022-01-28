@@ -178,7 +178,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
             case Type.EnumTypes.RegExp:
                 return Other.cloneRegExp(_source as RegExp, transform as (value: RegExp) => RegExp) as unknown as T;
             case Type.EnumTypes.TypedArray:
-                return Other.cloneTypedArray(_source as Type.TypedArray, transform) as unknown as T;
+                return Other.cloneTypedArray(_source as NodeJS.TypedArray, transform) as unknown as T;
             case Type.EnumTypes.Function:
             case Type.EnumTypes.AsyncFunction:
                 return (_source as CallableFunction).bind(null) as unknown as T;

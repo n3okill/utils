@@ -145,13 +145,14 @@ export function cloneSymbol(origin: symbol, transform?: (value: symbol) => symbo
  * @param {Function} transform
  * @returns {TypedArray}
  */
-export function cloneTypedArray<T>(origin: Type.TypedArray, transform?: (value: T) => T): Type.TypedArray {
+export function cloneTypedArray<T>(origin: NodeJS.TypedArray, transform?: (value: T) => T): NodeJS.TypedArray {
     return _checkTransform(
-        new ((origin as unknown as Type.TypedArray).constructor as Type.TypedArrayConstructor)(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        new ((origin as unknown as NodeJS.TypedArray).constructor as Type.TypedArrayConstructor)(
             origin.buffer,
             origin.byteOffset,
             origin.length
         ),
         transform as _transformFunctionType
-    ) as Type.TypedArray;
+    ) as NodeJS.TypedArray;
 }

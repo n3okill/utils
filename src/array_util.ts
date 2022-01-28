@@ -166,9 +166,9 @@ export function diff<T>(arr: Array<T>, ...args: Array<Array<T> | T>): Array<T> {
         for (let j = 0; j < argsLength; j++) {
             const current: Array<T> | T = args[j];
             if (Type.isArrayType(current)) {
-                const curLength = (current as Array<T>).length;
+                const curLength = current.length;
                 for (let c = 0; c < curLength; c++) {
-                    if (elem === (current as Array<T>)[c]) {
+                    if (elem === current[c]) {
                         hasElem = true;
                         c = curLength;
                         j = argsLength;
@@ -353,9 +353,9 @@ function rangeString(start: string, end: string, step: number = 1): Array<string
  */
 export function range(start: number | string, end: number | string, step: number = 1): Array<number | string> {
     if (Type.isString(start) && Type.isString(end)) {
-        return rangeString(start as string, end as string, step);
+        return rangeString(start, end, step);
     } else if (Type.isNumber(start) && Type.isNumber(end)) {
-        return rangeNumber(start as number, end as number, step);
+        return rangeNumber(start, end, step);
     } else {
         return [];
     }
@@ -367,7 +367,7 @@ export function range(start: number | string, end: number | string, step: number
  * @returns Array of the given argument
  */
 export function toArray<T>(arr: Array<T> | T): Array<T> {
-    return Type.isArrayType(arr) ? (arr as Array<T>) : [arr as T];
+    return Type.isArrayType(arr) ? arr : [arr];
 }
 
 /**
@@ -379,7 +379,7 @@ export function toMap(
     arg: Type.TObject | Array<[unknown, unknown]> | Map<unknown, unknown>
 ): Map<unknown, unknown> | undefined {
     return Type.isMap(arg)
-        ? (arg as Map<unknown, unknown>)
+        ? arg
         : Type.isObject(arg)
         ? new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]))
         : Type.isArray(arg)

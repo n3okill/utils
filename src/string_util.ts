@@ -19,7 +19,7 @@ const EncodeHtmlRules: Record<string, string> = {
  */
 export function toString(arg: unknown): string {
     return Type.isString(arg)
-        ? (arg as string)
+        ? arg
         : Type.isNullOrUndefined(arg)
         ? ""
         : Type.isSymbol(arg)
@@ -82,7 +82,7 @@ export function escapeRegExp(s: string): string {
 export function escapeHtml(arg: string | undefined | null): string {
     return Type.isNullOrUndefined(arg)
         ? ""
-        : (arg as string).replace(/[&<>'"]/g, (c: string): string => EncodeHtmlRules[c] || c);
+        : arg.replace(/[&<>'"]/g, (c: string): string => EncodeHtmlRules[c] || c);
 }
 
 /**
@@ -399,11 +399,11 @@ export function expand(
                 matches.forEach((match: BalancedData): void => {
                     let result = normalizeNestedOptions(match.body);
                     if (Type.isString(result)) {
-                        str = str.replace(match.body, result as string);
+                        str = str.replace(match.body, result);
                     } else if (Type.isArray(result)) {
                         const pre = match.pre.split(",");
                         const p: string = pre.pop() as string;
-                        result = (result as string[]).map((val: string): string => p + val);
+                        result = result.map((val: string): string => p + val);
                         str = str.replace(
                             `${p}${options.open as string}${match.body}${options.close as string}`,
                             result.join(",")
@@ -502,7 +502,7 @@ function getBalanced(input: string, open = "{", close = "}"): boolean | number[]
 export function balancedData(input: string, open: string = "{", close: string = "}"): /*boolean |*/ BalancedData[] {
     const b = balanced(input, open, close);
     if (Type.isArray(b)) {
-        return (b as number[][]).map((a: number[]): BalancedData => {
+        return b.map((a: number[]): BalancedData => {
             return {
                 start: a[0],
                 end: a[1],

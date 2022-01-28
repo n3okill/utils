@@ -9,16 +9,18 @@ export type TObject = Record<TObjectKey, unknown>;
 /**
  * TypedArray Types
  */
-export type TypedArray =
-    | Int8Array
-    | Uint8Array
-    | Uint8ClampedArray
-    | Int16Array
-    | Uint16Array
-    | Int32Array
-    | Uint32Array
-    | Float32Array
-    | Float64Array;
+/*export type TypedArray =
+        | Uint8Array
+        | Uint8ClampedArray
+        | Uint16Array
+        | Uint32Array
+        | Int8Array
+        | Int16Array
+        | Int32Array
+        | BigUint64Array
+        | BigInt64Array
+        | Float32Array
+        | Float64Array;*/
 export type TypedArrayConstructor =
     | Int8ArrayConstructor
     | Uint8ArrayConstructor
@@ -28,7 +30,11 @@ export type TypedArrayConstructor =
     | Int32ArrayConstructor
     | Uint32ArrayConstructor
     | Float32ArrayConstructor
-    | Float64ArrayConstructor;
+    | Float64ArrayConstructor
+    | BigUint64ArrayConstructor
+    | BigInt64ArrayConstructor;
+
+export type Primitive = string | number | bigint | boolean | symbol | undefined | null;
 
 /**
  * Javascript Object types Enum
@@ -55,6 +61,7 @@ export enum EnumTypes {
     TypedArray,
     Undefined,
     NotDefined,
+    BigInt
 }
 
 /**
@@ -71,6 +78,8 @@ const TypedArrayTypes: string[] = [
     "Uint32Array",
     "Float32Array",
     "Float64Array",
+    "BigInt64Array",
+    "BigUint64Array",
 ];
 
 /**
@@ -92,7 +101,8 @@ export function is(arg1: unknown, arg2: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isArray(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isArray(arg: unknown): arg is Array<any> {
     return Array.isArray ? Array.isArray(arg) : isKind(arg, "array");
 }
 
@@ -101,7 +111,8 @@ export function isArray(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isArrayType(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isArrayType(arg: unknown): arg is Array<any> | NodeJS.TypedArray {
     return isArray(arg) || isTypedArray(arg);
 }
 
@@ -110,7 +121,7 @@ export function isArrayType(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isTypedArray(arg: unknown): boolean {
+export function isTypedArray(arg: unknown): arg is NodeJS.TypedArray {
     return TypedArrayTypes.map((x) => x.toLowerCase()).indexOf(kindOf(arg).toLowerCase()) !== -1;
 }
 
@@ -119,7 +130,7 @@ export function isTypedArray(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isInt8Array(arg: unknown): boolean {
+export function isInt8Array(arg: unknown): arg is Int8Array {
     return isKind(arg, "Int8Array");
 }
 /**
@@ -127,7 +138,7 @@ export function isInt8Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isUint8Array(arg: unknown): boolean {
+export function isUint8Array(arg: unknown): arg is Uint8Array {
     return isKind(arg, "Uint8Array");
 }
 
@@ -136,7 +147,7 @@ export function isUint8Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isUint8ClampedArray(arg: unknown): boolean {
+export function isUint8ClampedArray(arg: unknown): arg is Uint8ClampedArray {
     return isKind(arg, "Uint8ClampedArray");
 }
 
@@ -145,7 +156,7 @@ export function isUint8ClampedArray(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isInt16Array(arg: unknown): boolean {
+export function isInt16Array(arg: unknown): arg is Int16Array {
     return isKind(arg, "Int16Array");
 }
 
@@ -154,7 +165,7 @@ export function isInt16Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isUint16Array(arg: unknown): boolean {
+export function isUint16Array(arg: unknown): arg is Uint16Array {
     return isKind(arg, "Uint16Array");
 }
 
@@ -163,7 +174,7 @@ export function isUint16Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isInt32Array(arg: unknown): boolean {
+export function isInt32Array(arg: unknown): arg is Int32Array {
     return isKind(arg, "Int32Array");
 }
 
@@ -172,7 +183,7 @@ export function isInt32Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isUint32Array(arg: unknown): boolean {
+export function isUint32Array(arg: unknown): arg is Uint32Array {
     return isKind(arg, "Uint32Array");
 }
 
@@ -181,7 +192,7 @@ export function isUint32Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isFloat32Array(arg: unknown): boolean {
+export function isFloat32Array(arg: unknown): arg is Float32Array {
     return isKind(arg, "Float32Array");
 }
 
@@ -190,8 +201,20 @@ export function isFloat32Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isFloat64Array(arg: unknown): boolean {
+export function isFloat64Array(arg: unknown): arg is Float64Array {
     return isKind(arg, "Float64Array");
+}
+
+export function isBigUint64Array(arg: unknown): arg is BigUint64Array {
+    return isKind(arg, "BigUint64Array");
+}
+export function isBigInt64Array(arg: unknown): arg is BigInt64Array {
+    return isKind(arg, "BigInt64Array");
+}
+
+
+export function isBigInt(arg: unknown): arg is BigInt {
+    return isKind(arg, "bigint");
 }
 
 /**
@@ -199,7 +222,7 @@ export function isFloat64Array(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isBoolean(arg: unknown): boolean {
+export function isBoolean(arg: unknown): arg is boolean {
     return isKind(arg, "boolean");
 }
 
@@ -208,7 +231,7 @@ export function isBoolean(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isBlob(arg: unknown): boolean {
+export function isBlob(arg: unknown): arg is Blob {
     return isKind(arg, "blob");
 }
 
@@ -217,7 +240,7 @@ export function isBlob(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isBuffer(arg: unknown): boolean {
+export function isBuffer(arg: unknown): arg is Buffer {
     return Buffer.isBuffer(arg);
 }
 
@@ -226,7 +249,7 @@ export function isBuffer(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isDate(arg: unknown): boolean {
+export function isDate(arg: unknown): arg is Date {
     return isKind(arg, "date");
 }
 
@@ -251,7 +274,7 @@ export function isEmpty(arg: unknown): boolean {
     return isNullOrUndefined(arg)
         ? true
         : isString(arg)
-        ? StringUtil.isEmpty(arg as string)
+        ? StringUtil.isEmpty(arg)
         : isArray(arg)
         ? ArrayUtil.isEmpty(arg as Array<unknown>)
         : isMap(arg)
@@ -259,7 +282,7 @@ export function isEmpty(arg: unknown): boolean {
         : isSet(arg)
         ? !(arg as Set<unknown>).size
         : isBuffer(arg)
-        ? !(arg as Buffer).byteLength
+        ? !arg.byteLength
         : isObject(arg)
         ? ObjectUtil.isEmpty(arg as TObject)
         : !isBoolean(arg) && !isNumber(arg);
@@ -270,7 +293,7 @@ export function isEmpty(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isError(arg: unknown): boolean {
+export function isError(arg: unknown): arg is Error {
     return isKind(arg, "error");
 }
 
@@ -279,7 +302,8 @@ export function isError(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isFunction(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function isFunction(arg: unknown): arg is Function {
     return isKind(arg, "function");
 }
 
@@ -288,7 +312,8 @@ export function isFunction(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isFunctionType(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+export function isFunctionType(arg: unknown): arg is Function | Promise<any> {
     return isFunction(arg) || isAsyncFunction(arg);
 }
 
@@ -297,7 +322,8 @@ export function isFunctionType(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isAsyncFunction(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isAsyncFunction(arg: unknown): arg is Promise<any> {
     const AsyncFunction = (async () => {
         //empty
     }).constructor;
@@ -324,8 +350,8 @@ export function isAsyncFunction(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isInteger(arg: unknown): boolean {
-    return isNumber(arg) && (arg as number) % 1 === 0;
+export function isInteger(arg: unknown): arg is number {
+    return isNumber(arg) && (arg % 1 === 0);
 }
 
 /**
@@ -352,7 +378,8 @@ export function isKindEqual(arg1: unknown, arg2: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isIterable(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isIterable(arg: unknown): arg is Iterable<any> {
     return !isNullOrUndefined(arg) && isFunction((arg as never)[Symbol.iterator]);
 }
 
@@ -361,7 +388,8 @@ export function isIterable(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isAsyncIterable(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isAsyncIterable(arg: unknown): arg is AsyncIterable<any> {
     return !isNullOrUndefined(arg) && isFunction((arg as never)[Symbol.asyncIterator]);
 }
 
@@ -370,7 +398,8 @@ export function isAsyncIterable(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isMap(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isMap(arg: unknown): arg is Map<any,any> {
     return isKind(arg, "map");
 }
 
@@ -379,7 +408,7 @@ export function isMap(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isNull(arg: unknown): boolean {
+export function isNull(arg: unknown): arg is null {
     return arg === null;
 }
 
@@ -388,7 +417,7 @@ export function isNull(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isNullOrUndefined(arg: unknown): boolean {
+export function isNullOrUndefined(arg: unknown): arg is null | undefined {
     return isNull(arg) || isUndefined(arg);
 }
 
@@ -397,7 +426,7 @@ export function isNullOrUndefined(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isNumber(arg: unknown): boolean {
+export function isNumber(arg: unknown): arg is number {
     return isKind(arg, "number");
 }
 
@@ -406,8 +435,10 @@ export function isNumber(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isNumeric(arg: unknown): boolean {
-    return isNumber(arg) || (isString(arg) && parseInt(arg as string, 10) == arg);
+export function isNumeric(arg: unknown): arg is number {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    return isNumber(arg) || (isString(arg) && parseInt(arg , 10) == arg);
 }
 
 /**
@@ -445,7 +476,7 @@ export function isSequence(arg: unknown, regex: RegExp): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isObject(arg: unknown): boolean {
+export function isObject(arg: unknown): arg is object {
     return !isNullOrUndefined(arg) && isKind(arg, "object");
 }
 
@@ -454,7 +485,8 @@ export function isObject(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isPlainObject(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isPlainObject(arg: unknown): arg is Record<PropertyKey,any> {
     return (
         !!arg &&
         isObject(arg) &&
@@ -468,15 +500,16 @@ export function isPlainObject(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isPrimitive(arg: unknown): boolean {
-    return isBoolean(arg) || isNumber(arg) || isString(arg) || isNullOrUndefined(arg); //["string", "number", "boolean"].indexOf(typeof arg) !== -1 ? true : isNullOrUndefined(arg);
+export function isPrimitive(arg: unknown): arg is Primitive {
+    return isBigInt(arg) || isBoolean(arg) || isNumber(arg) || isString(arg) || isSymbol(arg) || isNullOrUndefined(arg); //["string", "number", "boolean"].indexOf(typeof arg) !== -1 ? true : isNullOrUndefined(arg);
 }
 /**
  * Check if argument is a Promise
  * @param arg
  * @returns {boolean}
  */
-export function isPromise(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isPromise(arg: unknown): arg is Promise<any> {
     return isKind(arg, "promise");
 }
 
@@ -485,7 +518,7 @@ export function isPromise(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isRegExp(arg: unknown): boolean {
+export function isRegExp(arg: unknown): arg is RegExp {
     return isKind(arg, "RegExp");
 }
 
@@ -494,7 +527,8 @@ export function isRegExp(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isSet(arg: unknown): boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function isSet(arg: unknown): arg is Set<any> {
     return isKind(arg, "set");
 }
 
@@ -503,7 +537,7 @@ export function isSet(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isString(arg: unknown): boolean {
+export function isString(arg: unknown): arg is string {
     return isKind(arg, "string");
 }
 
@@ -512,7 +546,7 @@ export function isString(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isSymbol(arg: unknown): boolean {
+export function isSymbol(arg: unknown): arg is symbol {
     return isKind(arg, "symbol");
 }
 
@@ -521,7 +555,7 @@ export function isSymbol(arg: unknown): boolean {
  * @param arg
  * @returns {boolean}
  */
-export function isUndefined(arg?: unknown): boolean {
+export function isUndefined(arg?: unknown): arg is undefined {
     return typeof arg === "undefined";
 }
 
@@ -560,6 +594,8 @@ export function getEnumType(arg: unknown): EnumTypes {
         return EnumTypes.Promise;
     } else if (isAsyncFunction(arg)) {
         return EnumTypes.AsyncFunction;
+    } else if(isBigInt(arg)) {
+        return EnumTypes.BigInt;
     } else if (isBoolean(arg)) {
         return EnumTypes.Boolean;
     } else if (isBuffer(arg)) {

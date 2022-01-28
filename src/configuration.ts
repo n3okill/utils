@@ -49,12 +49,10 @@ export function isPropertyDefinedWithThrow(obj: any, name: string): void {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function hasProperty(obj: any, name: string | Array<string>): boolean {
-    if (Type.isString(name) && obj && Object.prototype.hasOwnProperty.call(obj, name as string)) {
+    if (Type.isString(name) && obj && Object.prototype.hasOwnProperty.call(obj, name)) {
         return true;
     }
-    const parts: Array<string> = getNameParts(
-        (Type.isString(name) ? (name as string).split(".") : name) as Array<string>
-    );
+    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
     while (o && parts.length) {
@@ -75,13 +73,11 @@ export function hasProperty(obj: any, name: string | Array<string>): boolean {
 export function getProperty(obj: any, name: string | Array<string>, defaultValue?: any): any {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
-    if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name as string)) {
+    if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-        return o[name as string];
+        return o[name];
     }
-    const parts: Array<string> = getNameParts(
-        (Type.isString(name) ? (name as string).split(".") : name) as Array<string>
-    );
+    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
     while (o && parts.length) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         o = o[parts.shift()!];
@@ -107,9 +103,7 @@ export function setProperty(
 ): any {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
-    const parts: Array<string> = getNameParts(
-        (Type.isString(name) ? (name as string).split(".") : name) as Array<string>
-    );
+    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
     const length: number = parts.length;
     if (parts.length > 1) {
         parts.reduce((prev: string, curr: string): string => {
@@ -144,17 +138,15 @@ export function setProperty(
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function removeProperty(obj: any, name: string | Array<string>): any {
-    if (Type.isString(name) && obj && Object.prototype.hasOwnProperty.call(obj, name as string)) {
+    if (Type.isString(name) && obj && Object.prototype.hasOwnProperty.call(obj, name)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,  @typescript-eslint/no-unsafe-member-access
-        const value = obj[name as string];
+        const value = obj[name];
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        delete obj[name as string];
+        delete obj[name];
         return value;
     }
 
-    const parts: Array<string> = getNameParts(
-        (Type.isString(name) ? (name as string).split(".") : name) as Array<string>
-    );
+    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
     const last: string = parts.pop() as string;
     while (obj && parts.length) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
