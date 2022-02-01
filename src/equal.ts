@@ -26,10 +26,24 @@ function _filterFunction(a: unknown, b: unknown): boolean {
     return false;
 }
 
+/**
+ * Returns the name of the constructor of the argument if it is an object, otherwise returns an empty
+ * string
+ * @param {unknown} arg - unknown
+ * @returns The name of the constructor of the argument.
+ */
 function constructorName(arg: unknown): string {
     return Type.isNullOrUndefined(arg) ? "" : (arg as Record<string, unknown>).constructor.name;
 }
 
+/**
+ * "Given two objects of the same type, return true if they are equal."
+ * 
+ * The function is generic, meaning it can be used with any type
+ * @param {T} a - The first object to compare.
+ * @param {U} b - U extends T
+ * @returns A boolean value.
+ */
 export function equal<T, U extends T>(a: T, b: U): boolean {
     if (constructorName(a) !== constructorName(b)) {
         return false;
@@ -37,6 +51,14 @@ export function equal<T, U extends T>(a: T, b: U): boolean {
     return _filterFunction(a, b);
 }
 
+/**
+ * "Check if two arrays are equal."
+ * 
+ * The function is generic, meaning that it can be applied to any type of array
+ * @param {T} a - T is the type of the array.
+ * @param {U} b - U is the type of the array that we're comparing against.
+ * @returns `true`
+ */
 export function equalArray<T extends Array<unknown>, U extends T>(a: T, b: U): boolean {
     if (a.length !== b.length) {
         return false;
@@ -52,10 +74,24 @@ export function equalArray<T extends Array<unknown>, U extends T>(a: T, b: U): b
     return true;
 }
 
+/**
+ * "Returns true if the two dates are equal."
+ * 
+ * The function signature is:
+ * @param {T} a - T, b: U
+ * @param {U} b - U
+ * @returns A boolean value.
+ */
 export function equalDate<T extends Date, U extends T>(a: T, b: U): boolean {
     return equalPrimitive(a.getTime(), b.getTime());
 }
 
+/**
+ * If the two errors are of the same type, and have the same message, then they are equal
+ * @param {T} a - The first error to compare.
+ * @param {U} b - The error to compare against.
+ * @returns The result of the function call.
+ */
 export function equalError<T extends Error, U extends T>(a: T, b: U): boolean {
     if (a.message !== b.message) {
         return false;
@@ -67,16 +103,35 @@ export function equalError<T extends Error, U extends T>(a: T, b: U): boolean {
     return constructorName(a) === constructorName(b);
 }
 
+/**
+ * Check if two functions are equal.
+ * @param {T} a - T, b: U
+ * @param {U} b - U is the type of the second parameter.
+ * @returns A boolean value.
+ */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function equalFunction<T extends Function, U extends T>(a: T, b: U): boolean {
     return equalPrimitive(a.toString(), b.toString());
 }
 
+/**
+ * Check if two objects are instances of the same class.
+ * @param {Function} obj - Function - The constructor of the object you want to compare.
+ * @param {T} a - T
+ * @param {U} b - U extends T
+ * @returns true
+ */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function equalInstance<T, U extends T>(obj: Function, a: T, b: U): boolean {
     return a instanceof obj && b instanceof obj;
 }
 
+/**
+ * Check if two maps have the same keys and values.
+ * @param {T} a - The first map.
+ * @param {U} b - The map to compare to a.
+ * @returns `true`
+ */
 export function equalMap<T extends Map<unknown, unknown>, U extends T>(a: T, b: U): boolean {
     if (a.size !== b.size) {
         return false;
@@ -102,6 +157,12 @@ export function equalMap<T extends Map<unknown, unknown>, U extends T>(a: T, b: 
     return true;
 }
 
+/**
+ * It checks if two objects have the same keys and values
+ * @param {T} a - The first object to compare.
+ * @param {U} b - The object to compare against.
+ * @returns The return value is `true` if the two objects are equal, `false` otherwise.
+ */
 export function equalObject<T extends Record<PropertyKey, unknown>, U extends T>(a: T, b: U): boolean {
     const aEntries = [...Object.getOwnPropertyNames(a), ...Object.getOwnPropertySymbols(a)];
     const bEntries = [...Object.getOwnPropertyNames(b), ...Object.getOwnPropertySymbols(b)];
@@ -122,18 +183,42 @@ export function equalObject<T extends Record<PropertyKey, unknown>, U extends T>
     return true;
 }
 
+/**
+ * Check if two values are equal, or if they are both the same primitive type.
+ * @param {T} a - Type.Primitive
+ * @param {U} b - Type.Primitive
+ * @returns A boolean value.
+ */
 export function equalPrimitive<T extends Type.Primitive, U extends T>(a: T, b: U): boolean {
     return Object.is(a, b) || a === b;
 }
 
+/**
+ * Given two regular expressions, return true if they are equal.
+ * @param {T} a - T, b: U
+ * @param {U} b - U is the type of the second parameter.
+ * @returns `true`
+ */
 export function equalRegExp<T extends RegExp, U extends T>(a: T, b: U): boolean {
     return equalPrimitive(a.toString(), b.toString());
 }
 
+/**
+ * Given two sets, return true if they contain the same elements.
+ * @param {T} a - The first set.
+ * @param {U} b - U is the type of the second set.
+ * @returns The result of the equality check.
+ */
 export function equalSet<T extends Set<unknown>, U extends T>(a: T, b: U): boolean {
     return equalArray(Array.from(a), Array.from(b));
 }
 
+/**
+ * If the two arrays are of the same length, and they have the same number of elements, then the
+ * elements of the two arrays are compared. If they are all equal, then the two arrays are equal
+ * @param {T} a - The first array to compare.
+ * @param {T} b - The array to compare to a.
+ */
 export function equalTypedArray<T extends NodeJS.TypedArray>(a: T, b: T) {
     if (a.length !== b.length) {
         return false;
