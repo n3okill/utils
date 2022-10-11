@@ -13,6 +13,7 @@ import { _transformFunctionType } from "./_internal.js";
 function _flat<T>(arr: (Array<T> | T)[], result: Array<T>): Array<T> {
     const length = arr.length;
     for (let i = 0; i < length; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const current: T | Array<T> = arr[i];
         Array.isArray(current) ? _flat(current, result) : result.push(current);
     }
@@ -122,6 +123,7 @@ export function delIndex<T>(arr: Array<T>, index: number): Array<T> {
     const length = arr.length;
     if (index < length && index > 0) {
         for (let i = index + 1; i < length; i++) {
+            // eslint-disable-next-line security/detect-object-injection
             arr[i - 1] = arr[i];
         }
         arr.pop();
@@ -139,6 +141,7 @@ export function delIndex<T>(arr: Array<T>, index: number): Array<T> {
 export function delItem<T>(arr: Array<T>, elem: T, number: number = -1): Array<T> {
     let length = arr.length;
     for (let i = 0; i < length && (number > 0 || number < 0); i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const cur = arr[i];
         if (cur === elem) {
             delIndex(arr, i);
@@ -161,13 +164,16 @@ export function diff<T>(arr: Array<T>, ...args: Array<Array<T> | T>): Array<T> {
     const arrLength = arr.length;
     const argsLength = args.length;
     for (let i = 0; i < arrLength; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const elem = arr[i];
         let hasElem = false;
         for (let j = 0; j < argsLength; j++) {
+            // eslint-disable-next-line security/detect-object-injection
             const current: Array<T> | T = args[j];
             if (Type.isArrayType(current)) {
                 const curLength = current.length;
                 for (let c = 0; c < curLength; c++) {
+                    // eslint-disable-next-line security/detect-object-injection
                     if (elem === current[c]) {
                         hasElem = true;
                         c = curLength;
@@ -213,19 +219,23 @@ export function intersect<T>(...args: Array<Array<T>>): Array<T> {
     let shortest = 0;
     let shortestLength = arrs[0].length;
     for (let i = 0; i < arrsLength; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const n = arrs[i].length;
         if (n < shortestLength) {
             shortest = i;
             shortestLength = n;
         }
     }
+    // eslint-disable-next-line security/detect-object-injection
     const shortestArr = arrs[shortest];
     const first = arrs[0];
 
     for (let i = 0; i < first.length; i++) {
         let hasElem = false;
+        // eslint-disable-next-line security/detect-object-injection
         const elem = first[i];
         for (let j = 0; j < shortestLength; j++) {
+            // eslint-disable-next-line security/detect-object-injection
             if (elem === shortestArr[j]) {
                 hasElem = true;
                 break;
@@ -235,9 +245,11 @@ export function intersect<T>(...args: Array<Array<T>>): Array<T> {
             for (let j = 1; j < arrsLength; j++) {
                 if (j !== shortest) {
                     hasElem = false;
+                    // eslint-disable-next-line security/detect-object-injection
                     const current = arrs[j];
                     const currentLength = current.length;
                     for (let c = 0; c < currentLength; c++) {
+                        // eslint-disable-next-line security/detect-object-injection
                         if (elem === current[c]) {
                             hasElem = true;
                             break;
@@ -381,7 +393,8 @@ export function toMap(
     return Type.isMap(arg)
         ? arg
         : Type.isObject(arg)
-        ? new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]))
+        ? // eslint-disable-next-line security/detect-object-injection
+          new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]))
         : Type.isArray(arg)
         ? new Map(arg as Array<[unknown, unknown]>)
         : undefined;
@@ -395,6 +408,7 @@ export function unique<T>(arr: Array<T>): Array<T> {
     const target: Array<T> = [];
     const arrLength = arr.length;
     for (let i = 0; i < arrLength; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const elem = arr[i];
         if (target.indexOf(elem) === -1) {
             target.push(elem);

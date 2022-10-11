@@ -82,7 +82,8 @@ export function escapeRegExp(s: string): string {
 export function escapeHtml(arg: string | undefined | null): string {
     return Type.isNullOrUndefined(arg)
         ? ""
-        : arg.replace(/[&<>'"]/g, (c: string): string => EncodeHtmlRules[c] || c);
+        : // eslint-disable-next-line security/detect-object-injection
+          arg.replace(/[&<>'"]/g, (c: string): string => EncodeHtmlRules[c] || c);
 }
 
 /**
@@ -92,6 +93,7 @@ export function escapeHtml(arg: string | undefined | null): string {
  * @returns Trimmed string
  */
 export function trimLeft(s: string | null | undefined, chars: string[] = []): string {
+    // eslint-disable-next-line security/detect-non-literal-regexp
     return toString(s).replace(chars.length ? new RegExp(`^[${escapeRegExp(chars.join(""))}]+`, "g") : /^\s+/g, "");
 }
 
@@ -102,6 +104,7 @@ export function trimLeft(s: string | null | undefined, chars: string[] = []): st
  * @returns Trimmed string
  */
 export function trimRight(s: string | null | undefined, chars: string[] = []): string {
+    // eslint-disable-next-line security/detect-non-literal-regexp
     return toString(s).replace(chars.length ? new RegExp(`[${escapeRegExp(chars.join(""))}]+$`, "g") : /\s+$/g, "");
 }
 
@@ -143,9 +146,12 @@ export function multiReplace(
     }
     for (let i = 0; i < search.length; i++) {
         const replacement = rep[rep.length !== 1 ? i : 0];
+        // eslint-disable-next-line security/detect-object-injection
         if (Type.isString(search[i])) {
+            // eslint-disable-next-line security/detect-non-literal-regexp, security/detect-object-injection
             s = s.replace(new RegExp(escapeRegExp(search[i] as string), "g"), replacement as string);
         } else {
+            // eslint-disable-next-line security/detect-object-injection
             s = s.replace(search[i], replacement as Replacefunction);
         }
     }
@@ -162,7 +168,9 @@ export function multiReplace(
 export function multiReplaceNamed(str: string, params: { [key: string]: unknown }): string {
     let s = toString(str);
     for (const key of Object.keys(params)) {
+        // eslint-disable-next-line security/detect-non-literal-regexp
         const reg = new RegExp(`${key}`, "g");
+        // eslint-disable-next-line security/detect-object-injection
         s = s.replace(reg, params[key] as string);
     }
     return s;
@@ -178,7 +186,9 @@ export function multiReplaceNamed(str: string, params: { [key: string]: unknown 
 export function formatMessage(str: string, params: { [key: string]: unknown }): string {
     let s = toString(str);
     for (const key of Object.keys(params)) {
+        // eslint-disable-next-line security/detect-non-literal-regexp
         const reg = new RegExp(`{${key}}`, "g");
+        // eslint-disable-next-line security/detect-object-injection
         s = s.replace(reg, params[key] as string);
     }
     return s;
@@ -285,7 +295,9 @@ export function objectToPathStrings(obj: { [key: string]: unknown }, separator: 
     function reduce(path: string, input: { [key: string]: unknown }): void {
         Object.keys(input).forEach((key: string): void => {
             const p = path ? path + separator + key : key;
+            // eslint-disable-next-line security/detect-object-injection
             if (Type.isObject(input[key]) && Object.keys(input[key] as string).length > 0) {
+                // eslint-disable-next-line security/detect-object-injection
                 reduce(p, input[key] as { [key: string]: unknown });
             } else {
                 res.push(p);
@@ -311,7 +323,9 @@ export function stringsPathToObject(str: string[], separator: string = NodePath.
         const parts = s.split(separator);
         let o: { [key: string]: unknown } = res;
         parts.forEach((p: string): void => {
+            // eslint-disable-next-line security/detect-object-injection
             o[p] = o[p] !== undefined ? o[p] : {};
+            // eslint-disable-next-line security/detect-object-injection
             o = o[p] as { [key: string]: unknown };
         });
     });
@@ -355,9 +369,11 @@ export function expand(
         separator: ",",
     }
 ): string[] {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     if (!isBalanced(input, options.open, options.close)) {
         return [];
     }
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const matches = balancedData(input, options.open, options.close); //(balancedData(input, options.open, options.close) ?? []) as BalancedData[];
     if (matches.length === 0) {
         return [input];
@@ -535,9 +551,9 @@ export function balanced(input: string, open: string = "{", close: string = "}")
  */
 export function balancedCounter(input: string, open = "{", close = "}"): boolean {
     //Can't use regexp.exec because of the "g" flag
-    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec, security/detect-non-literal-regexp
     const openNumber = (input.match(new RegExp(escapeRegExp(open), "g")) || []).length;
-    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec, security/detect-non-literal-regexp
     const closeNumber = (input.match(new RegExp(escapeRegExp(close), "g")) || []).length;
     return openNumber === closeNumber;
 }

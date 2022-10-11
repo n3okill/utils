@@ -74,7 +74,7 @@ export function getProperty(obj: any, name: string | Array<string>, defaultValue
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
     if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
         return o[name];
     }
     const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
@@ -107,11 +107,11 @@ export function setProperty(
     const length: number = parts.length;
     if (parts.length > 1) {
         parts.reduce((prev: string, curr: string): string => {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
             o[prev] =
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
                 !Type.isUndefined(o[prev]) ? o[prev] : parseInt(curr).toString() === curr ? [] : {};
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
             o = o[prev];
             return curr;
         });
@@ -139,9 +139,9 @@ export function setProperty(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function removeProperty(obj: any, name: string | Array<string>): any {
     if (Type.isString(name) && obj && Object.prototype.hasOwnProperty.call(obj, name)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,  @typescript-eslint/no-unsafe-member-access
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,  @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
         const value = obj[name];
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
         delete obj[name];
         return value;
     }
@@ -152,9 +152,9 @@ export function removeProperty(obj: any, name: string | Array<string>): any {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         obj = obj[parts.shift() as string];
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment, security/detect-object-injection
     const value = obj[last];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
     delete obj[last];
     return value;
 }

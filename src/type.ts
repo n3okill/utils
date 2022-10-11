@@ -61,7 +61,7 @@ export enum EnumTypes {
     TypedArray,
     Undefined,
     NotDefined,
-    BigInt
+    BigInt,
 }
 
 /**
@@ -212,7 +212,6 @@ export function isBigInt64Array(arg: unknown): arg is BigInt64Array {
     return isKind(arg, "BigInt64Array");
 }
 
-
 export function isBigInt(arg: unknown): arg is BigInt {
     return isKind(arg, "bigint");
 }
@@ -258,11 +257,15 @@ export function isDate(arg: unknown): arg is Date {
  * @param {string} arg
  * @param {boolean} matches
  * @returns {boolean | string[] | null}
+ *
+ * ATTENTION: This function can cause a [Regular Expression Denial of Service (ReDoS)]:https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS
  */
 export function isEmailFormat(arg: string, matches: boolean = false): boolean | null | string[] {
     return matches
-        ? /^((?:"?(?:[^"]*)"?\s)?)(?:\s+)?(?:(?:<?)(?:(.+)@([^>]+))(?:>?))$/i.exec(arg)
-        : /^((?:"?(?:[^"]*)"?\s)?)(?:\s+)?(?:(?:<?)(?:(.+)@([^>]+))(?:>?))$/i.test(arg);
+        ? // eslint-disable-next-line security/detect-unsafe-regex
+          /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.exec(arg)
+        : // eslint-disable-next-line security/detect-unsafe-regex
+          /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.test(arg);
 }
 
 /**
@@ -351,7 +354,7 @@ export function isAsyncFunction(arg: unknown): arg is Promise<any> {
  * @returns {boolean}
  */
 export function isInteger(arg: unknown): arg is number {
-    return isNumber(arg) && (arg % 1 === 0);
+    return isNumber(arg) && arg % 1 === 0;
 }
 
 /**
@@ -399,7 +402,7 @@ export function isAsyncIterable(arg: unknown): arg is AsyncIterable<any> {
  * @returns {boolean}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isMap(arg: unknown): arg is Map<any,any> {
+export function isMap(arg: unknown): arg is Map<any, any> {
     return isKind(arg, "map");
 }
 
@@ -438,7 +441,7 @@ export function isNumber(arg: unknown): arg is number {
 export function isNumeric(arg: unknown): arg is number {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    return isNumber(arg) || (isString(arg) && parseInt(arg , 10) == arg);
+    return isNumber(arg) || (isString(arg) && parseInt(arg, 10) == arg);
 }
 
 /**
@@ -448,6 +451,7 @@ export function isNumeric(arg: unknown): arg is number {
  * @returns {boolean}
  */
 export function isAlphaSequence(arg: unknown, regex?: RegExp): boolean {
+    // eslint-disable-next-line security/detect-unsafe-regex
     return isSequence(arg, regex || /^[a-zA-Z]\.\.[a-zA-Z](?:\.\.-?\d+)?$/);
 }
 
@@ -458,6 +462,7 @@ export function isAlphaSequence(arg: unknown, regex?: RegExp): boolean {
  * @returns {boolean}
  */
 export function isNumericSequence(arg: unknown, regex?: RegExp): boolean {
+    // eslint-disable-next-line security/detect-unsafe-regex
     return isSequence(arg, regex || /^-?\d+\.\.-?\d+(?:\.\.-?\d+)?$/);
 }
 
@@ -486,7 +491,7 @@ export function isObject(arg: unknown): arg is object {
  * @returns {boolean}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function isPlainObject(arg: unknown): arg is Record<PropertyKey,any> {
+export function isPlainObject(arg: unknown): arg is Record<PropertyKey, any> {
     return (
         !!arg &&
         isObject(arg) &&
@@ -594,7 +599,7 @@ export function getEnumType(arg: unknown): EnumTypes {
         return EnumTypes.Promise;
     } else if (isAsyncFunction(arg)) {
         return EnumTypes.AsyncFunction;
-    } else if(isBigInt(arg)) {
+    } else if (isBigInt(arg)) {
         return EnumTypes.BigInt;
     } else if (isBoolean(arg)) {
         return EnumTypes.Boolean;

@@ -99,6 +99,7 @@ export function deepClonePromise<T>(source: Promise<T>, transform?: (value: T) =
  * @returns {RegExp} New cloned RegExp
  */
 export function cloneRegExp(arg: RegExp, transform?: (value: RegExp) => RegExp): RegExp {
+    // eslint-disable-next-line security/detect-non-literal-regexp
     const reg = new RegExp(arg.source, arg.flags || (/[gimuy]*$/.exec(arg.toString()) as RegExpExecArray)[0]);
     if ("lastIndex" in arg) {
         reg.lastIndex = arg.lastIndex;

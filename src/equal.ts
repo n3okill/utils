@@ -38,7 +38,7 @@ function constructorName(arg: unknown): string {
 
 /**
  * "Given two objects of the same type, return true if they are equal."
- * 
+ *
  * The function is generic, meaning it can be used with any type
  * @param {T} a - The first object to compare.
  * @param {U} b - U extends T
@@ -53,7 +53,7 @@ export function equal<T, U extends T>(a: T, b: U): boolean {
 
 /**
  * "Check if two arrays are equal."
- * 
+ *
  * The function is generic, meaning that it can be applied to any type of array
  * @param {T} a - T is the type of the array.
  * @param {U} b - U is the type of the array that we're comparing against.
@@ -67,6 +67,7 @@ export function equalArray<T extends Array<unknown>, U extends T>(a: T, b: U): b
         return true;
     }
     for (let i = 0; i < a.length; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         if (!equal(a[i], b[i])) {
             return false;
         }
@@ -76,7 +77,7 @@ export function equalArray<T extends Array<unknown>, U extends T>(a: T, b: U): b
 
 /**
  * "Returns true if the two dates are equal."
- * 
+ *
  * The function signature is:
  * @param {T} a - T, b: U
  * @param {U} b - U
@@ -172,10 +173,12 @@ export function equalObject<T extends Record<PropertyKey, unknown>, U extends T>
     }
 
     for (let i = 0; i < aEntries.length; i++) {
+        // eslint-disable-next-line security/detect-object-injection
         const key = aEntries[i];
         if (bEntries.indexOf(key) === -1) {
             return false;
         }
+        // eslint-disable-next-line security/detect-object-injection
         if (!equal(a[key], b[key])) {
             return false;
         }
@@ -227,7 +230,8 @@ export function equalTypedArray<T extends NodeJS.TypedArray>(a: T, b: T) {
         return true;
     }
     for (let i = 0; i < a.length; i++) {
-        if (!equal(a[i],b[i])) {
+        // eslint-disable-next-line security/detect-object-injection
+        if (!equal(a[i], b[i])) {
             return false;
         }
     }

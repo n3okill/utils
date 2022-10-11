@@ -34,9 +34,12 @@ export function merge<A extends object[]>(...args: [...A]): Spread<A> {
     args.forEach((obj) => {
         if (!Type.isNullOrUndefined(obj)) {
             Object.keys(obj).forEach((key: string): void => {
+                // eslint-disable-next-line security/detect-object-injection
                 Type.isObject((obj as any)[key]) && Type.isObject(target[key])
-                    ? (target[key] = merge(target[key], (obj as any)[key]))
-                    : (target[key] = clone((obj as any)[key], true));
+                    ? // eslint-disable-next-line security/detect-object-injection
+                      (target[key] = merge(target[key], (obj as any)[key]))
+                    : // eslint-disable-next-line security/detect-object-injection
+                      (target[key] = clone((obj as any)[key], true));
             });
         }
     });
@@ -88,8 +91,11 @@ export function deepMixIn<A extends object[]>(...args: [...A]): Spread<A> {
     args.forEach((obj): void => {
         Object.keys(obj).forEach((key): void => {
             if (!Object.prototype.hasOwnProperty.call(target, key)) {
+                // eslint-disable-next-line security/detect-object-injection
                 target[key] = (obj as any)[key];
+                // eslint-disable-next-line security/detect-object-injection
             } else if (Type.isPlainObject(target) && Type.isPlainObject((obj as any)[key])) {
+                // eslint-disable-next-line security/detect-object-injection
                 deepMixIn(target[key], (obj as any)[key]);
             } else {
                 mixIn(target, obj);
@@ -114,8 +120,11 @@ export function deepFillIn<A extends object[]>(...args: [...A]): Spread<A> {
     args.forEach((obj): void => {
         Object.keys(obj).forEach((key): void => {
             if (!Object.prototype.hasOwnProperty.call(target, key)) {
+                // eslint-disable-next-line security/detect-object-injection
                 target[key] = (obj as any)[key];
+                // eslint-disable-next-line security/detect-object-injection
             } else if (Type.isPlainObject(target) && Type.isPlainObject((obj as any)[key])) {
+                // eslint-disable-next-line security/detect-object-injection
                 deepFillIn(target[key], (obj as any)[key]);
             }
         });
@@ -137,6 +146,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
         let target: unknown;
         const parentIndex = parentStack.indexOf(_source);
         if (parentIndex !== -1) {
+            // eslint-disable-next-line security/detect-object-injection
             return parentCloned[parentIndex] as T;
         }
 
@@ -204,7 +214,9 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
         if (Type.isArray(_source)) {
             let length: number = (_source as Array<T>).length;
             while (length--) {
+                // eslint-disable-next-line security/detect-object-injection
                 (target as Array<unknown>)[length] = _checkTransform(
+                    // eslint-disable-next-line security/detect-object-injection
                     deep ? _clone((_source as Array<T>)[length]) : (_source as Array<T>)[length],
                     transform,
                     length
