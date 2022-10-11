@@ -126,19 +126,12 @@ describe("Utilities", (): void => {
                 "fully-qualified-domain@example.com",
                 "user.name+tag+sorting@example.com",
                 "x@example.com",
-                `"very.(),:;<>[]\\".VERY.\\"very@\\\\ \\"very\\".unusual"@strange.example.com`,
                 "example-indeed@strange-example.com",
-                "admin@mailserver1",
-                "#!$%&'*+-/=?^_`{}|~@example.org",
-                `"()<>[]:,;@\\\\\\"!#$%&'-/=?^_\`{}| ~.a"@example.org`,
                 "example@s.solutions",
-                "user@localserver",
-                "user@[2001:db8:1ff::a0b:dbd0]",
                 "local@sld.newTLD",
                 "the-total-length@of-an-entire-address.cannot-be-longer-than-two-hundred-and-fifty-four-characters.and-this-address-is-254-characters-exactly.so-it-should-be-valid.and-im-going-to-add-some-more-words-here.to-increase-the-lenght-blah-blah-blah-blah-bla.org",
                 "the-character-limit@for-each-part.of-the-domain.is-sixty-three-characters.this-is-exactly-sixty-three-characters-so-it-is-valid-blah-blah.com",
                 "local@sub.domains.com",
-                "backticks`are`legit@test.com",
                 "digit-only-domain@123.com",
                 "digit-only-domain-with-subdomain@sub.123.com",
                 "foo@bar.com",
@@ -147,30 +140,50 @@ describe("Utilities", (): void => {
                 "foo+bar@bar.com",
                 "test+ext@gmail.com",
                 "some.name.midd.leNa.me.+extension@GoogleMail.com",
-                '"foobar"@example.com',
-                '"foo\\@bar"@example.com',
-                "! #$%`|@invalid-characters-in-local.org",
-                "(),:;`|@more-invalid-characters-in-local.org",
-                "<>@[]\\`|@even-more-invalid-characters-in-local.org",
-                ".local-starts-with-dot@sld.com",
-                "local-ends-with-dot.@sld.com",
-                "two..consecutive-dots@sld.com",
-                'partially."quoted"@sld.com',
                 "sld-starts-with-dashsh@-sld.com",
                 "sld-ends-with-dash@sld-.com",
-                "missing-dot-before-tld@com",
                 "the-total-length@of-an-entire-address.cannot-be-longer-than-two-hundred-and-fifty-four-characters.and-this-address-is-255-characters-exactly.so-it-should-be-invalid.and-im-going-to-add-some-more-words-here.to-increase-the-lenght-blah-blah-blah-blah-bl.org",
                 "the-character-limit@for-each-part.of-the-domain.is-sixty-three-characters.this-is-exactly-sixty-four-characters-so-it-is-invalid-blah-blah.com",
-                "unbracketed-IP@127.0.0.1",
-                "invalid-ip@127.0.0.1.26",
-                "another-invalid-ip@127.0.0.256",
+                "the-local-part-is-invalid-if-it-is-longer-than-sixty-four-characters@sld.net",
+            ];
+            const invalid = [
+                "@missing-local.org",
+                "invalid",
+                "missing-at-sign.net",
+                "invalidemail@",
+                "invalid.com",
+                "@invalid.com",
+                'invalid-characters-in-sld@! "#$%(),/;<>_[]`|.org',
+                "! #$%`|@invalid-characters-in-local.org",
+                `"()<>[]:,;@\\\\\\"!#$%&'-/=?^_\`{}| ~.a"@example.org`,
+                `"very.(),:;<>[]\\".VERY.\\"very@\\\\ \\"very\\".unusual"@strange.example.com`,
+                "(),:;`|@more-invalid-characters-in-local.org",
+                "#!$%&'*+-/=?^_`{}|~@example.org",
+                "<>@[]\\`|@even-more-invalid-characters-in-local.org",
+                '"foobar"@example.com',
+                '"foo\\@bar"@example.com',
+                ".local-starts-with-dot@sld.com",
                 "IP-and-port@127.0.0.1:25",
+                "backticks`are`legit@test.com",
                 "dot-on-dot-in-domainname@te..st.de",
                 "dot-first-in-domain@.test.de",
+                "admin@mailserver1",
+                "foo@bar.com.",
+                "foo@bar.co.uk.",
+                "local-ends-with-dot.@sld.com",
+                "invalid-ip@127.0.0.1.26",
+                "missing-sld@.com",
+                "missing-tld@sld.",
+                "missing-dot-before-tld@com",
+                "another-invalid-ip@127.0.0.256",
                 "mg@ns.i",
-                "somename@ｇｍａｉｌ.com",
+                "trailing-dots@test.de.",
                 "z@co.c",
-                "ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com",
+                "two..consecutive-dots@sld.com",
+                'partially."quoted"@sld.com',
+                "unbracketed-IP@127.0.0.1",
+                "user@localserver",
+                "user@[2001:db8:1ff::a0b:dbd0]",
                 "test1@invalid.co m",
                 "test2@invalid.co m",
                 "test3@invalid.co m",
@@ -184,26 +197,14 @@ describe("Utilities", (): void => {
                 "test11@invalid.co m",
                 "test12@invalid.co　m",
                 "test13@invalid.co　m",
-                "foo@bar.com.",
-                "foo@bar.co.uk.",
-                "missing-sld@.com",
-                "missing-tld@sld.",
-                "the-local-part-is-invalid-if-it-is-longer-than-sixty-four-characters@sld.net",
-                "trailing-dots@test.de.",
-            ];
-            const invalid = [
-                "@missing-local.org",
-                "invalid",
-                "missing-at-sign.net",
-                "invalidemail@",
-                "invalid.com",
-                "@invalid.com",
-                'invalid-characters-in-sld@! "#$%(),/;<>_[]`|.org',
+                "ｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌｇｍａｉｌ@gmail.com",
+                "somename@ｇｍａｉｌ.com",
             ];
             test("valid supported", (): void => {
                 const result: Record<string, boolean> = {};
                 for (const email of valid) {
                     if (!isEmailFormat(email)) {
+                        // eslint-disable-next-line security/detect-object-injection
                         result[email] = false;
                     }
                 }
@@ -213,6 +214,7 @@ describe("Utilities", (): void => {
                 const result: Record<string, boolean> = {};
                 for (const email of invalid) {
                     if (isEmailFormat(email)) {
+                        // eslint-disable-next-line security/detect-object-injection
                         result[email] = false;
                     }
                 }

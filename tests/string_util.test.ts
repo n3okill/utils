@@ -23,6 +23,7 @@ describe("Utilities", (): void => {
             test("should preserve sign of `0`", (): void => {
                 const values = [0, Object(0), -0, Object(-0)],
                     expected = ["0", "0", "-0", "-0"];
+                // eslint-disable-next-line security/detect-object-injection
                 values.forEach((v, i): void => expect(StringUtil.toString(v)).toBe(expected[i]));
             });
             test("should not error on symbols", (): void => {

@@ -71,16 +71,5 @@
     ],
     "exclude": [
         "node_modules"
-    ],
-    "typedocOptions": {
-        "entryPoints":"src/index.ts",
-        "out":"docs",
-        "excludeInternal":true,
-        "readme":"none",
-        "theme":"markdown",
-        "plugin":"typedoc-plugin-markdown",
-        "disableSources":true,
-        "githubPages": false,
-        "cleanOutputDir": true
-    }
+    ]
 }
