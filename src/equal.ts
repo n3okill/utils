@@ -66,12 +66,13 @@ export function equalArray<T extends Array<unknown>, U extends T>(a: T, b: U): b
     if (a.length === 0) {
         return true;
     }
-    for (let i = 0; i < a.length; i++) {
+    let i = a.length;
+    do {
         // eslint-disable-next-line security/detect-object-injection
         if (!equal(a[i], b[i])) {
             return false;
         }
-    }
+    } while (i-- >= 0);
     return true;
 }
 
