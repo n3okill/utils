@@ -3,7 +3,6 @@ import eslint from "@eslint/js";
 import security from "eslint-plugin-security";
 import jest from "eslint-plugin-jest";
 
-
 export default tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.recommendedTypeChecked,
@@ -13,7 +12,6 @@ export default tseslint.config(
         ignores: [ "**/dist/", "**/coverage/", "build.cjs", "eslint.config.js", "jest.config.js"]
     },
     {
-
         languageOptions: {
             parserOptions: {
                 project: [ "tsconfig.json", "./tsconfig.jest.json"],
