@@ -379,7 +379,7 @@ export function range(start: number | string, end: number | string, step: number
  * @returns Array of the given argument
  */
 export function toArray<T>(arr: Array<T> | T): Array<T> {
-    return Type.isArrayType(arr) ? arr : [arr];
+    return Type.isArrayType(arr) ? arr as Array<T> : [arr];
 }
 
 /**

@@ -296,7 +296,7 @@ export function objectToPathStrings(obj: { [key: string]: unknown }, separator: 
         Object.keys(input).forEach((key: string): void => {
             const p = path ? path + separator + key : key;
             // eslint-disable-next-line security/detect-object-injection
-            if (Type.isObject(input[key]) && Object.keys(input[key] as string).length > 0) {
+            if (Type.isObject(input[key]) && Object.keys(input[key]).length > 0) {
                 // eslint-disable-next-line security/detect-object-injection
                 reduce(p, input[key] as { [key: string]: unknown });
             } else {
