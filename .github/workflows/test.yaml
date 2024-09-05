@@ -1,6 +1,9 @@
 name: Utils Tests and code analysis
 
-on: ["push"]
+on: 
+    push:
+        branches-ignore:
+            - master
 
 permissions: read-all
 
