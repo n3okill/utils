@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as NumberUtil from "../src/number_util";
 
 describe("en_util", (): void => {

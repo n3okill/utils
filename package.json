@@ -31,7 +31,7 @@
     "build:cjs": "npx tsc -p tsconfig-cjs.json",
     "build:package.json": "node ./build.cjs",
     "build": "npm run clean:dist && npm run build:mjs && npm run build:cjs && npm run build:package.json",
-    "lint": "eslint src --ext .ts && eslint tests --ext .ts",
+    "lint": "eslint",
     "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" --write",
     "pretest": "npm run build",
     "unit": "jest",
@@ -44,7 +44,8 @@
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
+    "@eslint/js": "^9.9.1",
+    "@jest/globals": "^29.7.0",
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
     "@typescript-eslint/parser": "^8.4.0",
@@ -56,7 +57,8 @@
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
   },
   "files": [
     "dist/**/*"

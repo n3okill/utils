@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as Type from "../src/type";
 import * as fs from "fs";
 
@@ -27,9 +28,7 @@ describe("Utilities", (): void => {
                 expect(kindOf([1, "foo"])).toBe("Array");
                 expect(kindOf(new Array(3))).toBe("Array");
 
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(kindOf(function (): void {})).toBe("Function");
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(kindOf((): void => {})).toBe("Function");
                 // eslint-disable-next-line @typescript-eslint/no-implied-eval
                 expect(kindOf(new Function("return 1;"))).toBe("Function");
@@ -52,7 +51,6 @@ describe("Utilities", (): void => {
                 expect(isKind(false, "Boolean")).toBeTruthy();
                 expect(isKind(true, "Boolean")).toBeTruthy();
                 expect(isKind(new Date(), "Date")).toBeTruthy();
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isKind(function (): void {}, "Function")).toBeTruthy();
                 expect(isKind(null, "Null")).toBeTruthy();
                 expect(isKind(123, "Number")).toBeTruthy();
@@ -66,9 +64,7 @@ describe("Utilities", (): void => {
         describe("isAsyncFunction", (): void => {
             test("should detect if value is an async function", (): void => {
                 const isAsyncFunction = Type.isAsyncFunction;
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isAsyncFunction((): void => {})).toBeFalsy();
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isAsyncFunction(async (): Promise<void> => {})).toBeTruthy();
                 expect(isAsyncFunction(() => Promise.resolve())).toBeTruthy();
                 expect(isAsyncFunction("")).toBeFalsy();
@@ -248,9 +244,7 @@ describe("Utilities", (): void => {
                 expect(isEmpty(-Infinity)).toBeFalsy();
                 expect(isEmpty(false)).toBeFalsy();
                 expect(isEmpty(true)).toBeFalsy();
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 const fn = (): void => {};
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 const fn2 = (): void => {};
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
                 (fn2 as any).bar = "ipsum";
@@ -261,7 +255,6 @@ describe("Utilities", (): void => {
         describe("isFunction", (): void => {
             test("should detect if value is a function", (): void => {
                 const isFunction = Type.isFunction;
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isFunction((): void => {})).toBeTruthy();
                 // eslint-disable-next-line @typescript-eslint/no-implied-eval
                 expect(isFunction(new Function("return 1;"))).toBeTruthy();
@@ -392,7 +385,6 @@ describe("Utilities", (): void => {
                 expect(isPlainObject(true)).toBe(false);
                 expect(isPlainObject(null)).toBe(false);
                 expect(isPlainObject(/test/)).toBe(false);
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isPlainObject(function (): void {})).toBe(false);
                 expect(isPlainObject(1)).toBe(false);
                 expect(isPlainObject([1])).toBe(false);
@@ -405,7 +397,6 @@ describe("Utilities", (): void => {
                 }
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
                 Test.prototype.isTest = true;
-                //eslint-disable-next-line @typescript-eslint/no-explicit-any
                 expect(isPlainObject(new (Test as FunctionConstructor)())).toBe(false);
             });
         });
@@ -425,7 +416,6 @@ describe("Utilities", (): void => {
                 expect(isPrimitive({})).toBe(false);
                 expect(isPrimitive([])).toBe(false);
                 expect(isPrimitive(/./)).toBe(false);
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 expect(isPrimitive(function (): void {})).toBe(false);
                 expect(
                     isPrimitive(

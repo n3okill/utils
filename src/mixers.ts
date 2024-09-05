@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as Type from "./type.js";
 import * as Other from "./other.js";
-import { _checkTransform } from "./_internal.js";
+import { _checkTransform, TransformFunctionType } from "./_internal.js";
 
-export type OptionalPropertyNames<T> = { [K in keyof T]-?: {} extends { [P in K]: T[K] } ? K : never }[keyof T];
+export type OptionalPropertyNames<T> = { [K in keyof T]-?: object extends { [P in K]: T[K] } ? K : never }[keyof T];
 
 export type SpreadProperties<L, R, K extends keyof L & keyof R> = { [P in K]: L[P] | Exclude<R[P], undefined> };
 
@@ -34,7 +34,7 @@ export function merge<A extends object[]>(...args: [...A]): Spread<A> {
     args.forEach((obj) => {
         if (!Type.isNullOrUndefined(obj)) {
             Object.keys(obj).forEach((key: string): void => {
-                // eslint-disable-next-line security/detect-object-injection
+                // eslint-disable-next-line security/detect-object-injection 
                 Type.isObject((obj as any)[key]) && Type.isObject(target[key])
                     ? // eslint-disable-next-line security/detect-object-injection
                       (target[key] = merge(target[key], (obj as any)[key]))
@@ -138,11 +138,11 @@ export function deepFillIn<A extends object[]>(...args: [...A]): Spread<A> {
  * @param deep If true will deep clone values in multiple argument types
  * @returns New cloned object
  */
-export function clone<T>(source: T, deep: boolean = false, transform?: (value: unknown, key?: unknown) => unknown): T {
+export function clone<T>(source: T, deep: boolean = false, transform?: TransformFunctionType): T {
     const parentStack: Array<unknown> = [];
     const parentCloned: Array<unknown> = [];
 
-    const _clone = (_source: unknown): T => {
+    const _clone = <T>(_source: T): T => {
         let target: unknown;
         const parentIndex = parentStack.indexOf(_source);
         if (parentIndex !== -1) {
@@ -162,10 +162,10 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
                 break;
             case Type.EnumTypes.Promise:
                 target = new ((_source as Promise<T>).constructor as PromiseConstructor)(
-                    (resolve: CallableFunction, reject: CallableFunction): void => {
+                    (resolve: ((value: T | PromiseLike<T>) => void), reject: ((reason?: any) => void)): void => {
                         (_source as Promise<T>).then(
-                            (value: T): Promise<T> => resolve(_checkTransform(_clone(value), transform)) as Promise<T>,
-                            (err: Error): Promise<T> => reject(_checkTransform(_clone(err))) as Promise<T>
+                            (value: T | PromiseLike<T>): void => resolve(_checkTransform(_clone(value), transform)),
+                            (err: Error): void => reject(_checkTransform(_clone(err), transform))
                         );
                     }
                 );
@@ -179,7 +179,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
                 }
                 break;
             case Type.EnumTypes.Buffer:
-                return Other.cloneBuffer(_source as Buffer, transform as (value: Buffer) => Buffer) as unknown as T;
+                return Other.cloneBuffer(_source as Buffer, transform) as unknown as T;
             case Type.EnumTypes.Date:
                 return Other.cloneDate(_source as Date, transform as (value: Date) => Date) as unknown as T;
             case Type.EnumTypes.Error:
@@ -206,7 +206,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: (value: u
                 break;
             case Type.EnumTypes.Null:
             case Type.EnumTypes.Undefined:
-                return _source as T;
+                return _source;
         }
         parentStack.push(_source);
         parentCloned.push(target);

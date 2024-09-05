@@ -212,7 +212,7 @@ export function isBigInt64Array(arg: unknown): arg is BigInt64Array {
     return isKind(arg, "BigInt64Array");
 }
 
-export function isBigInt(arg: unknown): arg is BigInt {
+export function isBigInt(arg: unknown): arg is bigint {
     return isKind(arg, "bigint");
 }
 
@@ -305,7 +305,7 @@ export function isError(arg: unknown): arg is Error {
  * @param arg
  * @returns {boolean}
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function isFunction(arg: unknown): arg is Function {
     return isKind(arg, "function");
 }
@@ -315,7 +315,7 @@ export function isFunction(arg: unknown): arg is Function {
  * @param arg
  * @returns {boolean}
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-function-type
 export function isFunctionType(arg: unknown): arg is Function | Promise<any> {
     return isFunction(arg) || isAsyncFunction(arg);
 }
@@ -341,7 +341,8 @@ export function isAsyncFunction(arg: unknown): arg is Promise<any> {
     try {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         promise = (arg as CallableFunction)();
-    } catch (err) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
         //empty
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access

@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as Other from "../src/other";
 
 describe("Utilities", (): void => {
@@ -156,7 +157,7 @@ describe("Utilities", (): void => {
                 expect(await Other.clonePromise(Promise.resolve("foo"))).toBe("foo");
 
                 // Rejecting to a value
-                await expect(Other.clonePromise(Promise.reject("bar"))).rejects.toBe("bar");
+                await expect(Other.clonePromise(Promise.reject(new Error("bar")))).rejects.toEqual(new Error("bar"));
 
                 // Resolving to a promise
                 expect(await Other.clonePromise(Promise.resolve(Promise.resolve("baz")))).toBe("baz");

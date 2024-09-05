@@ -9,7 +9,7 @@
  * @version 0.0.1
  * @since 0.0.1
  */
-
+import { describe, test, expect } from "@jest/globals";
 import * as Configuration from "../src/configuration";
 
 describe("Utilities", (): void => {

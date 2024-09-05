@@ -111,7 +111,7 @@ export function equalError<T extends Error, U extends T>(a: T, b: U): boolean {
  * @param {U} b - U is the type of the second parameter.
  * @returns A boolean value.
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function equalFunction<T extends Function, U extends T>(a: T, b: U): boolean {
     return equalPrimitive(a.toString(), b.toString());
 }
@@ -123,7 +123,7 @@ export function equalFunction<T extends Function, U extends T>(a: T, b: U): bool
  * @param {U} b - U extends T
  * @returns true
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function equalInstance<T, U extends T>(obj: Function, a: T, b: U): boolean {
     return a instanceof obj && b instanceof obj;
 }

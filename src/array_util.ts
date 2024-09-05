@@ -1,7 +1,7 @@
 import * as Type from "./type.js";
 import * as Mixers from "./mixers.js";
 import * as NumberUtil from "./number_util.js";
-import { _transformFunctionType } from "./_internal.js";
+import { TransformFunctionType } from "./_internal.js";
 
 /**
  * @internal
@@ -15,6 +15,7 @@ function _flat<T>(arr: (Array<T> | T)[], result: Array<T>): Array<T> {
     for (let i = 0; i < length; i++) {
         // eslint-disable-next-line security/detect-object-injection
         const current: T | Array<T> = arr[i];
+        // eslint-disable-next-line  @typescript-eslint/no-unused-expressions
         Array.isArray(current) ? _flat(current, result) : result.push(current);
     }
     return result;
@@ -48,7 +49,7 @@ export function chunk<T>(arr: T | Array<T>, size: number): Array<Array<T>> {
  * @returns The cloned array
  */
 export function cloneArray<T>(source: Array<T>, deep: boolean = false, transform?: (value: T) => T): Array<T> {
-    return Mixers.clone(source as never, deep, transform as _transformFunctionType);
+    return Mixers.clone(source as never, deep, transform as TransformFunctionType);
 }
 
 /**
@@ -95,12 +96,12 @@ export function combineUnique<T>(...arrays: Array<Array<T> | T>): Array<T> {
  * @param filter The filter function to be applied to arrays, default `Type.is`, `(obj1, obj2)=>boolean`
  * @returns {Array<T>} The combined array
  */
-export function combineUniqueFilter<T>(...arrays: Array<Array<T> | T | unknown>): Array<T> {
+export function combineUniqueFilter<T>(...arrays: Array<Array<T> | T>): Array<T> {
     let comparator = Type.is;
     if (Type.isFunction(arrays[arrays.length - 1])) {
         comparator = arrays.pop() as (arg1: unknown, arg2: unknown) => boolean;
     }
-    return uniqueFilter<T>(combine(...arrays) as Array<T>, comparator);
+    return uniqueFilter<T>(combine(...arrays), comparator);
 }
 
 /**

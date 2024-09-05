@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as StringUtil from "../src/string_util";
 
 describe("Utilities", (): void => {
@@ -44,7 +45,7 @@ describe("Utilities", (): void => {
                 expect(StringUtil.trimLeft(str)).toBe("lorem  ipsum    \t \t  \t\t  ");
             });
             test("should remove specified chars from begin of string", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(StringUtil.trimLeft(str, chars)).toBe("test*-+-");
@@ -62,7 +63,7 @@ describe("Utilities", (): void => {
                 expect(StringUtil.trimRight(str)).toBe("   \t \t \t\t     lorem  ipsum");
             });
             test("should remove specified chars from end of string", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(StringUtil.trimRight(str, chars)).toBe("-+-*test");
@@ -124,7 +125,7 @@ describe("Utilities", (): void => {
                 expect(StringUtil.multiReplace(void 0, ["a"], "b")).toBe("");
             });
             test("should replace all elements without breaking", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 expect(StringUtil.multiReplace(".abc.2.1", ["."], ["."])).toBe(".abc.2.1");
             });
         });

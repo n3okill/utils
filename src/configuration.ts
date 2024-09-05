@@ -56,7 +56,7 @@ export function hasProperty(obj: any, name: string | Array<string>): boolean {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
     while (o && parts.length) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         o = o[parts.shift()!];
     }
     return parts.length === 0;
@@ -74,12 +74,12 @@ export function getProperty(obj: any, name: string | Array<string>, defaultValue
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let o = obj;
     if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
         return o[name];
     }
     const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
     while (o && parts.length) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         o = o[parts.shift()!];
     }
     return parts.length === 0 ? o : defaultValue !== undefined ? defaultValue : undefined;

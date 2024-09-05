@@ -62,6 +62,7 @@ export function repeat(str: string, n: number): string {
         if (n & 1) {
             result += str;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         (n >>= 1), (str += str);
     }
     return result;
@@ -369,11 +370,11 @@ export function expand(
         separator: ",",
     }
 ): string[] {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
+     
     if (!isBalanced(input, options.open, options.close)) {
         return [];
     }
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
+     
     const matches = balancedData(input, options.open, options.close); //(balancedData(input, options.open, options.close) ?? []) as BalancedData[];
     if (matches.length === 0) {
         return [input];
@@ -551,9 +552,9 @@ export function balanced(input: string, open: string = "{", close: string = "}")
  */
 export function balancedCounter(input: string, open = "{", close = "}"): boolean {
     //Can't use regexp.exec because of the "g" flag
-    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec, security/detect-non-literal-regexp
+    // eslint-disable-next-line security/detect-non-literal-regexp
     const openNumber = (input.match(new RegExp(escapeRegExp(open), "g")) || []).length;
-    // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec, security/detect-non-literal-regexp
+    // eslint-disable-next-line security/detect-non-literal-regexp
     const closeNumber = (input.match(new RegExp(escapeRegExp(close), "g")) || []).length;
     return openNumber === closeNumber;
 }

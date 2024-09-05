@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as BufferUtil from "../src/buffer_util";
 
 describe("Utilities", (): void => {
@@ -29,7 +30,7 @@ describe("Utilities", (): void => {
                 expect(BufferUtil.trimLeft(Buffer.from(str))).toEqual(Buffer.from("lorem  ipsum    \t \t  \t\t  "));
             });
             test("should remove specified chars from begin of string", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(BufferUtil.trimLeft(Buffer.from(str), chars)).toEqual(Buffer.from("test*-+-"));
@@ -41,7 +42,7 @@ describe("Utilities", (): void => {
                 expect(BufferUtil.trimRight(Buffer.from(str))).toEqual(Buffer.from("   \t \t \t\t     lorem  ipsum"));
             });
             test("should remove specified chars from end of string", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(BufferUtil.trimRight(Buffer.from(str), chars)).toEqual(Buffer.from("-+-*test"));
@@ -93,7 +94,7 @@ describe("Utilities", (): void => {
                 ).toEqual(Buffer.from("1 4 9 97"));
             });
             test("should replace all elements without breaking", (): void => {
-                // eslint-disable-next-line no-useless-escape
+                 
                 expect(BufferUtil.multiReplace(Buffer.from(".abc.2.1"), ["."], ["."])).toEqual(Buffer.from(".abc.2.1"));
             });
         });

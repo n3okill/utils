@@ -1,3 +1,4 @@
+import { describe, test, expect } from "@jest/globals";
 import * as Equal from "../src/equal";
 import { Primitive } from "../src/type";
 
@@ -148,9 +149,9 @@ describe("Utilities", (): void => {
                 [{ 1: true }, { 1: true, 2: false }, false],
                 [{ a: { b: { c: {} } } }, { a: { b: { c: {} } } }, true],
                 [
-                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                     
                     { a: { b: { c: { d: () => {}, e: 0, f: [] } } } },
-                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                     
                     { a: { b: { c: { d: () => {}, e: 0, f: [] } } } },
                     true,
                 ],
@@ -167,7 +168,7 @@ describe("Utilities", (): void => {
                 ],
                 [
                     { [symbol]: true, 1: "hello", [symbol2]: "world" },
-                    { [symbol]: true, 1: "hello", [symbol]: "world" },
+                    { [symbol]: true, 1: "hello", [Symbol("world")]: "world" },
                     false,
                 ],
             ];
@@ -176,7 +177,7 @@ describe("Utilities", (): void => {
             });
         });
         describe("> instance", () => {
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             const tests: [Function, unknown, unknown, boolean][] = [
                 [Error, Error(), Error(), true],
                 [Error, TypeError(), TypeError(), true],
@@ -297,9 +298,8 @@ describe("Utilities", (): void => {
             }
             class Foo {}
             class Bar {}
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             const tests: [Function, Function, boolean][] = [
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 [() => {}, () => {}, true],
                 [() => true, () => true, true],
                 [a, b, true],

@@ -1,5 +1,5 @@
 import { TObject, TObjectKey, isObject } from "./type.js";
-import { _transformFunctionType } from "./_internal.js";
+import { TransformFunctionType } from "./_internal.js";
 import * as Mixers from "./mixers.js";
 
 /**
@@ -17,7 +17,7 @@ export function isEmpty(arg: TObject): boolean {
  * @returns New cloned Object
  */
 export function cloneObject<T>(source: T, deep: boolean = false, transform?: (value: T) => T): T {
-    return Mixers.clone(source, deep, transform as _transformFunctionType);
+    return Mixers.clone(source, deep, transform as TransformFunctionType);
 }
 
 /**

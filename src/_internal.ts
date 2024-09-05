@@ -3,7 +3,8 @@ import { isFunction } from "./type.js";
 /**
  * @internal
  */
-export type _transformFunctionType = (value: unknown, key?: unknown) => unknown;
+
+export type TransformFunctionType = <T>(value: T, key?:unknown) => T;
 
 /**
  * Check if a transformation function should be applied to an object
@@ -13,6 +14,6 @@ export type _transformFunctionType = (value: unknown, key?: unknown) => unknown;
  * @param key
  * @returns
  */
-export const _checkTransform = (value: unknown, transform?: _transformFunctionType, key?: unknown): unknown => {
-    return isFunction(transform) ? (transform as CallableFunction)(value, key) : value;
+export const _checkTransform = <T>(value: T, transform?: TransformFunctionType, key?: unknown): T => {
+    return isFunction(transform) ? (transform as CallableFunction)(value, key) as T : value;
 };

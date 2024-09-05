@@ -1,6 +1,6 @@
 import * as Mixers from "./mixers.js";
 import * as Type from "./type.js";
-import { _checkTransform, _transformFunctionType } from "./_internal.js";
+import { _checkTransform, TransformFunctionType } from "./_internal.js";
 
 /**
  * Clone buffer
@@ -9,7 +9,7 @@ import { _checkTransform, _transformFunctionType } from "./_internal.js";
  * @returns {Buffer}
  */
 export function cloneBuffer(origin: Buffer, transform?: (value: Buffer) => Buffer): Buffer {
-    return _checkTransform(Buffer.from(origin), transform as _transformFunctionType) as Buffer;
+    return _checkTransform(Buffer.from(origin), transform as TransformFunctionType);
 }
 
 /**
@@ -18,7 +18,7 @@ export function cloneBuffer(origin: Buffer, transform?: (value: Buffer) => Buffe
  * @returns {Date} New cloned Date object
  */
 export function cloneDate(origin: Date, transform?: (value: Date) => Date): Date {
-    return _checkTransform(new Date(origin.getTime()), transform as _transformFunctionType) as Date;
+    return _checkTransform(new Date(origin.getTime()), transform as TransformFunctionType);
 }
 
 /**
@@ -27,7 +27,7 @@ export function cloneDate(origin: Date, transform?: (value: Date) => Date): Date
  * @returns {Error} New cloned Error object
  */
 export function cloneError(origin: Error, transform?: (value: Error) => Error): Error {
-    return _checkTransform(Object.create(origin), transform as _transformFunctionType) as Error;
+    return _checkTransform(Reflect.construct(origin.constructor,[origin.message]) as Error, transform as TransformFunctionType);
 }
 
 /*
@@ -44,7 +44,7 @@ export function cloneFunction(origin: CallableFunction, deep: boolean = false, t
  * @returns {Map}
  */
 export function deepCloneMap<K, V>(origin: Map<K, V>, transform?: (value: V, key: K) => V): Map<K, V> {
-    return Mixers.clone(origin, true, transform as _transformFunctionType);
+    return Mixers.clone(origin, true, transform as TransformFunctionType);
 }
 
 /**
@@ -54,7 +54,7 @@ export function deepCloneMap<K, V>(origin: Map<K, V>, transform?: (value: V, key
  * @returns {Map}
  */
 export function cloneMap<K, V>(origin: Map<K, V>, transform?: (value: V, key: K) => V): Map<K, V> {
-    return Mixers.clone(origin, false, transform as _transformFunctionType);
+    return Mixers.clone(origin, false, transform as TransformFunctionType);
 }
 
 /**
@@ -65,12 +65,12 @@ export function cloneMap<K, V>(origin: Map<K, V>, transform?: (value: V, key: K)
  */
 export function clonePrimitive(
     origin: boolean | string | number,
-    transform?: (value: string | number | boolean) => string | number | boolean
+    transform?: (value: string | number | boolean) => string | number | boolean,
 ): boolean | string | number {
     return _checkTransform(
-        new (origin.constructor as ObjectConstructor)(origin).valueOf(),
-        transform as _transformFunctionType
-    ) as string | number | boolean;
+        new (origin.constructor as ObjectConstructor)(origin).valueOf() as string | number | boolean,
+        transform as TransformFunctionType,
+    );
 }
 
 /**
@@ -80,7 +80,7 @@ export function clonePrimitive(
  * @returns {Promise}
  */
 export function clonePromise<T>(source: Promise<T>, transform?: (value: T) => T): Promise<T> {
-    return Mixers.clone(source, false, transform as _transformFunctionType);
+    return Mixers.clone(source, false, transform as TransformFunctionType);
 }
 
 /**
@@ -90,7 +90,7 @@ export function clonePromise<T>(source: Promise<T>, transform?: (value: T) => T)
  * @returns {Promise}
  */
 export function deepClonePromise<T>(source: Promise<T>, transform?: (value: T) => T): Promise<T> {
-    return Mixers.clone(source, true, transform as _transformFunctionType);
+    return Mixers.clone(source, true, transform as TransformFunctionType);
 }
 
 /**
@@ -104,7 +104,7 @@ export function cloneRegExp(arg: RegExp, transform?: (value: RegExp) => RegExp):
     if ("lastIndex" in arg) {
         reg.lastIndex = arg.lastIndex;
     }
-    return _checkTransform(reg, transform as _transformFunctionType) as RegExp;
+    return _checkTransform(reg, transform as TransformFunctionType);
 }
 
 /**
@@ -114,7 +114,7 @@ export function cloneRegExp(arg: RegExp, transform?: (value: RegExp) => RegExp):
  * @returns {Set}
  */
 export function deepCloneSet<T extends Set<U>, U>(source: T, transform?: (value: U) => U): T {
-    return Mixers.clone(source, true, transform as _transformFunctionType);
+    return Mixers.clone(source, true, transform as TransformFunctionType);
 }
 
 /**
@@ -124,7 +124,7 @@ export function deepCloneSet<T extends Set<U>, U>(source: T, transform?: (value:
  * @returns {Set}
  */
 export function cloneSet<T extends Set<U>, U>(source: T, transform?: (value: U) => U): T {
-    return Mixers.clone(source as never, false, transform as (value: unknown) => unknown) as unknown as T;
+    return Mixers.clone(source as never, false, transform as <U>(value: U) => U) as unknown as T;
 }
 
 /**
@@ -134,10 +134,7 @@ export function cloneSet<T extends Set<U>, U>(source: T, transform?: (value: U) 
  * @returns {Symbol}
  */
 export function cloneSymbol(origin: symbol, transform?: (value: symbol) => symbol): symbol {
-    return _checkTransform(
-        Object(Symbol.prototype.valueOf.call(origin)),
-        transform as _transformFunctionType
-    ) as symbol;
+    return _checkTransform(Object(Symbol.prototype.valueOf.call(origin)) as symbol, transform as TransformFunctionType);
 }
 
 /**
@@ -148,12 +145,11 @@ export function cloneSymbol(origin: symbol, transform?: (value: symbol) => symbo
  */
 export function cloneTypedArray<T>(origin: NodeJS.TypedArray, transform?: (value: T) => T): NodeJS.TypedArray {
     return _checkTransform(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         new ((origin as unknown as NodeJS.TypedArray).constructor as Type.TypedArrayConstructor)(
             origin.buffer,
             origin.byteOffset,
-            origin.length
+            origin.length,
         ),
-        transform as _transformFunctionType
-    ) as NodeJS.TypedArray;
+        transform as TransformFunctionType,
+    );
 }

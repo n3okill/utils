@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { describe, test, expect } from "@jest/globals";
 import { TObject } from "../src/type";
 import * as ObjectUtil from "../src/object_util";
 import * as fs from "fs";
@@ -112,7 +113,7 @@ describe("Utilities", (): void => {
                 const a: any = { b: b, c: c };
                 a.loop = a;
                 a.loop2 = a;
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (c as any).loop = c;
                 c.aloop = a;
                 const resultA = ObjectUtil.cloneObject(a);

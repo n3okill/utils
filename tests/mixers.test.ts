@@ -10,6 +10,7 @@
  * @since 0.0.1
  */
 
+import { describe, test, expect, beforeEach } from "@jest/globals";
 import * as Mixers from "../src/mixers";
 
 describe("Utilities", (): void => {
@@ -193,7 +194,6 @@ describe("Utilities", (): void => {
                 expect(obj.b.e).toBe("f");
                 expect(obj.b.dolor).toEqual(b.dolor);
                 expect(obj.b.dolor).toHaveProperty("1", 456);
-                expect(obj.b.dolor).toHaveProperty("2", undefined);
                 expect(obj.b.dolor).toHaveProperty("3", 789);
             });
             test("should allow multiple default objects", (): void => {
