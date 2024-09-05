@@ -10,7 +10,7 @@ export function generateBase64RandomKey(length: number = 32): string {
     return StringUtil.multiReplace(
         NodeCrypto.randomBytes(length).toString("base64").substr(0, length),
         ["+", "/"],
-        ["_", "-"]
+        ["_", "-"],
     );
 }
 

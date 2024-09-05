@@ -380,7 +380,7 @@ export function range(start: number | string, end: number | string, step: number
  * @returns Array of the given argument
  */
 export function toArray<T>(arr: Array<T> | T): Array<T> {
-    return Type.isArrayType(arr) ? arr as Array<T> : [arr];
+    return Type.isArrayType(arr) ? (arr as Array<T>) : [arr];
 }
 
 /**
@@ -389,16 +389,16 @@ export function toArray<T>(arr: Array<T> | T): Array<T> {
  * @returns Resulting Map from argument given or undefined if the argument is not Object, Array or Map
  */
 export function toMap(
-    arg: Type.TObject | Array<[unknown, unknown]> | Map<unknown, unknown>
+    arg: Type.TObject | Array<[unknown, unknown]> | Map<unknown, unknown>,
 ): Map<unknown, unknown> | undefined {
     return Type.isMap(arg)
         ? arg
         : Type.isObject(arg)
-        ? // eslint-disable-next-line security/detect-object-injection
-          new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]))
-        : Type.isArray(arg)
-        ? new Map(arg as Array<[unknown, unknown]>)
-        : undefined;
+          ? // eslint-disable-next-line security/detect-object-injection
+            new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]))
+          : Type.isArray(arg)
+            ? new Map(arg as Array<[unknown, unknown]>)
+            : undefined;
 }
 
 /**

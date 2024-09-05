@@ -74,9 +74,9 @@ export function trimLeft(s: Buffer, chars: Array<string | Buffer> = []): Buffer 
     return Buffer.from(
         StringUtil.trimLeft(
             toString(s, encoding),
-            chars.map((s) => _toString(s))
+            chars.map((s) => _toString(s)),
         ),
-        encoding
+        encoding,
     );
 }
 
@@ -91,9 +91,9 @@ export function trimRight(s: Buffer, chars: Array<string | Buffer> = []): Buffer
     return Buffer.from(
         StringUtil.trimRight(
             toString(s, encoding),
-            chars.map((s) => _toString(s))
+            chars.map((s) => _toString(s)),
         ),
-        encoding
+        encoding,
     );
 }
 
@@ -117,7 +117,7 @@ export function trim(str: Buffer, chars: Array<string | Buffer> = []): Buffer {
 export function multiReplace(
     str: Buffer,
     search: Array<string | RegExp>,
-    replace: Array<string | StringUtil.Replacefunction> | string | StringUtil.Replacefunction
+    replace: Array<string | StringUtil.Replacefunction> | string | StringUtil.Replacefunction,
 ): Buffer {
     const encoding = detectEncoding(str);
     return Buffer.from(StringUtil.multiReplace(toString(str, encoding), search, replace), encoding);
@@ -195,7 +195,7 @@ export function xorTokens(token1: Buffer, token2: Buffer): Buffer {
     const encoding = detectEncoding(token1);
     return Buffer.from(
         StringUtil.xorTokens(toString(token1, encoding), toString(token2, detectEncoding(token2))),
-        encoding
+        encoding,
     );
 }
 
@@ -229,7 +229,7 @@ export function objectToPathBuffer(obj: { [key: string]: unknown }, separator: s
 export function bufferPathToObject(str: Buffer[], separator: string = Separator): { [key: string]: unknown } {
     return StringUtil.stringsPathToObject(
         str.map((s) => toString(s)),
-        separator
+        separator,
     );
 }
 
@@ -267,7 +267,7 @@ export function expand(
         open: "{",
         close: "}",
         separator: ",",
-    }
+    },
 ): Buffer[] {
     const encoding = detectEncoding(input);
     return StringUtil.expand(toString(input, encoding), options).map((s) => Buffer.from(s, encoding));

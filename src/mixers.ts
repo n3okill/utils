@@ -34,7 +34,7 @@ export function merge<A extends object[]>(...args: [...A]): Spread<A> {
     args.forEach((obj) => {
         if (!Type.isNullOrUndefined(obj)) {
             Object.keys(obj).forEach((key: string): void => {
-                // eslint-disable-next-line security/detect-object-injection 
+                // eslint-disable-next-line security/detect-object-injection
                 Type.isObject((obj as any)[key]) && Type.isObject(target[key])
                     ? // eslint-disable-next-line security/detect-object-injection
                       (target[key] = merge(target[key], (obj as any)[key]))
@@ -57,8 +57,8 @@ export function mixInOne<T>(target: T, source: T): void {
             Object.defineProperty(
                 target,
                 property,
-                Object.getOwnPropertyDescriptor(source, property) as PropertyDescriptor
-            ) as unknown as void
+                Object.getOwnPropertyDescriptor(source, property) as PropertyDescriptor,
+            ) as unknown as void,
     );
 }
 
@@ -162,12 +162,12 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
                 break;
             case Type.EnumTypes.Promise:
                 target = new ((_source as Promise<T>).constructor as PromiseConstructor)(
-                    (resolve: ((value: T | PromiseLike<T>) => void), reject: ((reason?: any) => void)): void => {
+                    (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void): void => {
                         (_source as Promise<T>).then(
                             (value: T | PromiseLike<T>): void => resolve(_checkTransform(_clone(value), transform)),
-                            (err: Error): void => reject(_checkTransform(_clone(err), transform))
+                            (err: Error): void => reject(_checkTransform(_clone(err), transform)),
                         );
-                    }
+                    },
                 );
                 break;
             case Type.EnumTypes.Object:
@@ -201,7 +201,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
             case Type.EnumTypes.String:
                 return Other.clonePrimitive(
                     _source as never,
-                    transform as (value: string | number | boolean) => string | boolean | number
+                    transform as (value: string | number | boolean) => string | boolean | number,
                 ) as unknown as T;
                 break;
             case Type.EnumTypes.Null:
@@ -219,14 +219,14 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
                     // eslint-disable-next-line security/detect-object-injection
                     deep ? _clone((_source as Array<T>)[length]) : (_source as Array<T>)[length],
                     transform,
-                    length
+                    length,
                 );
             }
         } else if (Type.isMap(_source)) {
             for (const [key, value] of (_source as Map<unknown, unknown>).entries()) {
                 (target as Map<unknown, unknown>).set(
                     key,
-                    _checkTransform(deep ? _clone(value) : value, transform, key)
+                    _checkTransform(deep ? _clone(value) : value, transform, key),
                 );
             }
         } else if (Type.isSet(_source)) {

@@ -277,18 +277,18 @@ export function isEmpty(arg: unknown): boolean {
     return isNullOrUndefined(arg)
         ? true
         : isString(arg)
-        ? StringUtil.isEmpty(arg)
-        : isArray(arg)
-        ? ArrayUtil.isEmpty(arg as Array<unknown>)
-        : isMap(arg)
-        ? !(arg as Map<unknown, unknown>).size
-        : isSet(arg)
-        ? !(arg as Set<unknown>).size
-        : isBuffer(arg)
-        ? !arg.byteLength
-        : isObject(arg)
-        ? ObjectUtil.isEmpty(arg as TObject)
-        : !isBoolean(arg) && !isNumber(arg);
+          ? StringUtil.isEmpty(arg)
+          : isArray(arg)
+            ? ArrayUtil.isEmpty(arg as Array<unknown>)
+            : isMap(arg)
+              ? !(arg as Map<unknown, unknown>).size
+              : isSet(arg)
+                ? !(arg as Set<unknown>).size
+                : isBuffer(arg)
+                  ? !arg.byteLength
+                  : isObject(arg)
+                    ? ObjectUtil.isEmpty(arg as TObject)
+                    : !isBoolean(arg) && !isNumber(arg);
 }
 
 /**
@@ -584,8 +584,8 @@ export function kindOf(arg: unknown): string {
     return arg === null
         ? "null"
         : arg === undefined
-        ? "undefined"
-        : (/^\[object (.*)]$/.exec(Object.prototype.toString.call(arg)) as RegExpExecArray)[1];
+          ? "undefined"
+          : (/^\[object (.*)]$/.exec(Object.prototype.toString.call(arg)) as RegExpExecArray)[1];
 }
 
 /**
