@@ -45,7 +45,6 @@ describe("Utilities", (): void => {
                 expect(StringUtil.trimLeft(str)).toBe("lorem  ipsum    \t \t  \t\t  ");
             });
             test("should remove specified chars from begin of string", (): void => {
-                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(StringUtil.trimLeft(str, chars)).toBe("test*-+-");
@@ -63,7 +62,6 @@ describe("Utilities", (): void => {
                 expect(StringUtil.trimRight(str)).toBe("   \t \t \t\t     lorem  ipsum");
             });
             test("should remove specified chars from end of string", (): void => {
-                 
                 const str = "-+-*test*-+-";
                 const chars = ["-", "+", "*", "\\"];
                 expect(StringUtil.trimRight(str, chars)).toBe("-+-*test");
@@ -115,7 +113,7 @@ describe("Utilities", (): void => {
                 }
 
                 expect(StringUtil.multiReplace("1 2 3 a", [/\d+/g, /[a-z]/g], [replaceNum, replaceLetter])).toBe(
-                    "1 4 9 97"
+                    "1 4 9 97",
                 );
             });
             test("should treat null as empty string", (): void => {
@@ -125,7 +123,6 @@ describe("Utilities", (): void => {
                 expect(StringUtil.multiReplace(void 0, ["a"], "b")).toBe("");
             });
             test("should replace all elements without breaking", (): void => {
-                 
                 expect(StringUtil.multiReplace(".abc.2.1", ["."], ["."])).toBe(".abc.2.1");
             });
         });
@@ -142,8 +139,8 @@ describe("Utilities", (): void => {
                                 e: {},
                             },
                         },
-                        "/"
-                    )
+                        "/",
+                    ),
                 ).toEqual(["a/b/c", "a/b/d", "a/e"]);
             });
         });
@@ -274,7 +271,7 @@ describe("Utilities", (): void => {
                 expect(StringUtil.expand("ppp{,config,oe{,conf}}")).toEqual(["ppp", "pppconfig", "pppoe", "pppoeconf"]);
                 expect(StringUtil.expand("{a,b{1..3},c}")).toEqual(["a", "b1", "b2", "b3", "c"]);
                 expect(StringUtil.expand("{{A..Z},{a..z}}")).toEqual(
-                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("")
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""),
                 );
             });
             test("order", (): void => {

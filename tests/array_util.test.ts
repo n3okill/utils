@@ -43,7 +43,7 @@ describe("Utilities", (): void => {
                         (item: Array<unknown>, idx: number) => {
                             // eslint-disable-next-line jest/no-conditional-expect
                             expect(item).toHaveLength(idx !== 4 ? 2 : 1);
-                        }
+                        },
                     );
                 }
             });
@@ -91,7 +91,7 @@ describe("Utilities", (): void => {
                         [17],
                         18,
                         [[19], 20],
-                    ])
+                    ]),
                 ).toEqual([0, [1], 2, [[3, 4], 5], 6, 7, [[[8, 9], 10], 11], 12, 13, 14, 15, 16, [17], 18, [[19], 20]]);
             });
             test("combine more complex cases", (): void => {
@@ -192,8 +192,8 @@ describe("Utilities", (): void => {
                                 ["d", ["e"]],
                             ],
                         ],
-                        ["d", ["e"]]
-                    )
+                        ["d", ["e"]],
+                    ),
                 ).toEqual([
                     "a",
                     "b",
@@ -366,7 +366,7 @@ describe("Utilities", (): void => {
             });
             test("flatten multiple simple nested arrays", (): void => {
                 expect(
-                    ArrayUtil.flatten([1, 2, [3, [4, 5], 6, [7, [8]]]], [[[[9, 10], 11], 12, 13, 14, 15], 16])
+                    ArrayUtil.flatten([1, 2, [3, [4, 5], 6, [7, [8]]]], [[[[9, 10], 11], 12, 13, 14, 15], 16]),
                 ).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
             });
             test("flatten multiple complex nested arrays", (): void => {
@@ -374,8 +374,8 @@ describe("Utilities", (): void => {
                     ArrayUtil.flatten(
                         [[0, [1], 2, [[3, 4], 5]], 6],
                         [7, [[[[8, 9], 10], 11], 12], 13, 14],
-                        [15, 16, [[17], 18, [[19], 20]]]
-                    )
+                        [15, 16, [[17], 18, [[19], 20]]],
+                    ),
                 ).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
             });
             test("flatten more complex cases", (): void => {
@@ -492,8 +492,8 @@ describe("Utilities", (): void => {
                                 ],
                             ],
                         ],
-                        ["d", ["e"]]
-                    )
+                        ["d", ["e"]],
+                    ),
                 ).toEqual([
                     "a",
                     "b",
@@ -765,7 +765,7 @@ describe("Utilities", (): void => {
                         "z",
                         "a",
                         "b",
-                    ])
+                    ]),
                 ).toEqual(["a", "b", "c", "f", "x", "y", "z"]);
                 expect(
                     ArrayUtil.unique([
@@ -794,7 +794,7 @@ describe("Utilities", (): void => {
                         "foo/bar/baz/quux/fez/test/fixtures/m.js",
                         "foo/bar/baz/quux/fez/test/fixtures",
                         "foo/bar/baz/quux/fez/test/fixtures/a.js",
-                    ])
+                    ]),
                 ).toEqual([
                     "foo/bar/baz/quux/fez/test/fixtures",
                     "foo/bar/baz/quux/fez/test/fixtures/a.js",

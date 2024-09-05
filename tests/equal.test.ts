@@ -149,9 +149,8 @@ describe("Utilities", (): void => {
                 [{ 1: true }, { 1: true, 2: false }, false],
                 [{ a: { b: { c: {} } } }, { a: { b: { c: {} } } }, true],
                 [
-                     
                     { a: { b: { c: { d: () => {}, e: 0, f: [] } } } },
-                     
+
                     { a: { b: { c: { d: () => {}, e: 0, f: [] } } } },
                     true,
                 ],

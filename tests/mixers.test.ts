@@ -185,7 +185,7 @@ describe("Utilities", (): void => {
                         lorem: "ipsum",
                         b: b,
                     },
-                    a
+                    a,
                 );
                 expect(obj.foo).toBe("bar");
                 expect(obj.lorem).toBe("ipsum");
