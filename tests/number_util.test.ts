@@ -50,7 +50,7 @@ describe("en_util", (): void => {
             });
             test("9.178.1350-beta.66.0.183.99999 == 9.178.1350-beta.66.0.183.99999", (): void => {
                 expect(
-                    NumberUtil.versionCompare("9.178.1350-beta.66.0.183.99999", "9.178.1350-beta.66.0.183.99999")
+                    NumberUtil.versionCompare("9.178.1350-beta.66.0.183.99999", "9.178.1350-beta.66.0.183.99999"),
                 ).toBe(0);
             });
             test("1.0.0 > 1.0.0-beta.2", (): void => {

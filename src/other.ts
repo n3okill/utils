@@ -27,7 +27,10 @@ export function cloneDate(origin: Date, transform?: (value: Date) => Date): Date
  * @returns {Error} New cloned Error object
  */
 export function cloneError(origin: Error, transform?: (value: Error) => Error): Error {
-    return _checkTransform(Reflect.construct(origin.constructor,[origin.message]) as Error, transform as TransformFunctionType);
+    return _checkTransform(
+        Reflect.construct(origin.constructor, [origin.message]) as Error,
+        transform as TransformFunctionType,
+    );
 }
 
 /*

@@ -14,20 +14,20 @@ describe("Utilities", (): void => {
                     ["a", 1],
                     ["b", 2],
                     ["c", 3],
-                ])
+                ]),
             );
             expect(
                 ObjectUtil.toMap({
                     1: "a",
                     2: "b",
                     3: "c",
-                })
+                }),
             ).toEqual(
                 new Map<unknown, unknown>([
                     ["1", "a"],
                     ["2", "b"],
                     ["3", "c"],
-                ])
+                ]),
             );
         });
         test("fromMap", (): void => {
@@ -37,8 +37,8 @@ describe("Utilities", (): void => {
                         ["a", 1],
                         ["b", 2],
                         ["c", 3],
-                    ])
-                )
+                    ]),
+                ),
             ).toEqual({ a: 1, b: 2, c: 3 });
             expect(
                 ObjectUtil.fromMap(
@@ -46,8 +46,8 @@ describe("Utilities", (): void => {
                         ["1", "a"],
                         ["2", "b"],
                         ["3", "c"],
-                    ])
-                )
+                    ]),
+                ),
             ).toEqual({ "1": "a", "2": "b", "3": "c" });
         });
         describe("cloneObject()", (): void => {

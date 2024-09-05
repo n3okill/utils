@@ -14,7 +14,7 @@ function getNameParts(names: Array<string>): Array<string> {
                   .replace(/\[(\d+)]/g, ".$1")
                   .split(".")
                   .forEach((v: string): number | "" => (v ? parts.push(v) : ""))
-            : parts.push(part)
+            : parts.push(part),
     );
     return parts;
 }
@@ -98,7 +98,7 @@ export function setProperty(
     obj: any,
     name: string | Array<string>,
     value: unknown,
-    replace: boolean = false
+    replace: boolean = false,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

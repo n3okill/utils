@@ -21,12 +21,12 @@ export function toString(arg: unknown): string {
     return Type.isString(arg)
         ? arg
         : Type.isNullOrUndefined(arg)
-        ? ""
-        : Type.isSymbol(arg)
-        ? Symbol.prototype.toString.call(arg)
-        : (arg as string) + "" === "0" && 1 / (arg as number) === -Infinity
-        ? "-0"
-        : (arg as string) + "";
+          ? ""
+          : Type.isSymbol(arg)
+            ? Symbol.prototype.toString.call(arg)
+            : (arg as string) + "" === "0" && 1 / (arg as number) === -Infinity
+              ? "-0"
+              : (arg as string) + "";
 }
 
 /**
@@ -138,7 +138,7 @@ export type Replacefunction = (substring: string, ...args: unknown[]) => string;
 export function multiReplace(
     str: string | null | undefined,
     search: Array<string | RegExp>,
-    replace: Array<string | Replacefunction> | string | Replacefunction
+    replace: Array<string | Replacefunction> | string | Replacefunction,
 ): string {
     const rep: Array<string | Replacefunction> = ArrayUtil.toArray(replace);
     let s = toString(str);
@@ -368,13 +368,12 @@ export function expand(
         open: "{",
         close: "}",
         separator: ",",
-    }
+    },
 ): string[] {
-     
     if (!isBalanced(input, options.open, options.close)) {
         return [];
     }
-     
+
     const matches = balancedData(input, options.open, options.close); //(balancedData(input, options.open, options.close) ?? []) as BalancedData[];
     if (matches.length === 0) {
         return [input];
@@ -395,7 +394,7 @@ export function expand(
                             return /\.\./.test(match.body)
                                 ? `${options.open as string}${toInsert}${options.close as string}`
                                 : toInsert;
-                        }
+                        },
                     );
                 }
             }
@@ -423,7 +422,7 @@ export function expand(
                         result = result.map((val: string): string => p + val);
                         str = str.replace(
                             `${p}${options.open as string}${match.body}${options.close as string}`,
-                            result.join(",")
+                            result.join(","),
                         );
                     }
                 });
@@ -449,7 +448,7 @@ export function expand(
                                 return /\.\./.test(m.body)
                                     ? `${options.open as string}${m.body}${options.close as string}`
                                     : a;
-                            })
+                            }),
                         );
                     });
                 }

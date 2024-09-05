@@ -49,7 +49,7 @@ describe("Utilities", (): void => {
                 const values = [null, undefined];
                 const path = "constructor.prototype.valueOf";
                 values.forEach((value): unknown =>
-                    expect(Configuration.getProperty(value as never, path)).toBeUndefined()
+                    expect(Configuration.getProperty(value as never, path)).toBeUndefined(),
                 );
             });
             test("should return `undefined` if parts of `path` are missing", (): void => {

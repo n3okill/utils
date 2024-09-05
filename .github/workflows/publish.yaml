@@ -1,0 +1,65 @@
+name: Npm Publish Utils
+
+on: 
+    release:
+        types: [created]
+
+permissions: read-all 
+
+jobs:
+    codacy-security-scan:
+        permissions:
+            contents: read # for actions/checkout to fetch code
+            security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+        name: Codacy Security Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@main
+
+            - name: Run Codacy Analysis CLI
+              uses: codacy/codacy-analysis-cli-action@master
+              with:
+                output: results.sarif
+                format: sarif
+                # Adjust severity of non-security issues
+                gh-code-scanning-compat: true
+                # Force 0 exit code to allow SARIF file generation
+                # This will handover control about PR rejection to the GitHub side
+                max-allowed-issues: 2147483647
+
+            # Upload the SARIF file generated in the previous step
+            - name: Upload SARIF results file
+              uses: github/codeql-action/upload-sarif@main
+              with:
+                    sarif_file: results.sarif
+
+    test:
+        strategy:
+            matrix:
+                node: [18, 20, 22]
+                os: [ubuntu-latest, macos-latest, windows-latest]
+        runs-on: ${{matrix.os}}
+        steps:
+            - uses: actions/checkout@main
+            - name: Use node ${{ matrix.node }}
+              uses: actions/setup-node@main
+              with:
+                node-version: ${{ matrix.node }}
+                cache: npm
+            - run: npm install
+            - run: npm test
+
+    publish:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@main
+            - uses: actions/setup-node@main
+              with:
+                  node-version: 20
+            - run: npm install
+            - run: npm test
+            - uses: JS-DevTools/npm-publish@main
+              with:
+                  token: ${{ secrets.NPM_TOKEN }}

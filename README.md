@@ -36,42 +36,42 @@ import { Type, ArrayUtil } from "@n3okill/utils";
 
 ## Runing tests
 
--   `npm run lint`: runs the linter
--   `npm run unit`: run unit tests
--   `npm test`: run both lint and unit tests
+- `npm run lint`: runs the linter
+- `npm run unit`: run unit tests
+- `npm test`: run both lint and unit tests
 
 ## Contribute
 
 If you find a problem with the package you can
 
--   [Submit a Bug](https://github.com/n3okill/utils/issues)
+- [Submit a Bug](https://github.com/n3okill/utils/issues)
 
 or even make a
 
--   [Pull request](https://github.com/n3okill/utils/pulls)
+- [Pull request](https://github.com/n3okill/utils/pulls)
 
 ### Proposing a new helper
 
 If you wan't to propose a new helper, following this steps would be much apreciated:
 
--   Develop the new helper, with clean and readable code
--   Develop tests for the new helper
--   Include in the comments a description of what the helper does, the input arguments and what it returns
+- Develop the new helper, with clean and readable code
+- Develop tests for the new helper
+- Include in the comments a description of what the helper does, the input arguments and what it returns
 
 ## Documentation
 
 This package is divided into modules, and there's no access to individual functions.
 
--   [ArrayUtil](docs/modules/ArrayUtil.md) - Array Utilities
--   [BufferUtil](docs/modules/BufferUtil.md) - Buffer Utilities
--   [Configuration](docs/modules/Configuration.md) - Objects and strings related utilities
--   [Mixers](docs/modules/Mixers.md) - Object cloning and filling Utilities
--   [NumberUtil](docs/modules/NumberUtil.md) - Number Utilities
--   [ObjectUtil](docs/modules/ObjectUtil.md) - Object Utilities, like clone among other's
--   [Other](docs/modules/Other.md) - Other cloning types utilities
--   [Security](docs/modules/Security.md) - Basic security related Utilities
--   [StringUtil](docs/modules/StringUtil.md) - String Utilities
--   [Type](docs/modules/Type.md) - Many type utilities
+- [ArrayUtil](docs/modules/ArrayUtil.md) - Array Utilities
+- [BufferUtil](docs/modules/BufferUtil.md) - Buffer Utilities
+- [Configuration](docs/modules/Configuration.md) - Objects and strings related utilities
+- [Mixers](docs/modules/Mixers.md) - Object cloning and filling Utilities
+- [NumberUtil](docs/modules/NumberUtil.md) - Number Utilities
+- [ObjectUtil](docs/modules/ObjectUtil.md) - Object Utilities, like clone among other's
+- [Other](docs/modules/Other.md) - Other cloning types utilities
+- [Security](docs/modules/Security.md) - Basic security related Utilities
+- [StringUtil](docs/modules/StringUtil.md) - String Utilities
+- [Type](docs/modules/Type.md) - Many type utilities
 
 ## Examples
 

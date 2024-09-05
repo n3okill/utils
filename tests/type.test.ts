@@ -266,7 +266,7 @@ describe("Utilities", (): void => {
                 expect(
                     Type.isFunctionType(function () {
                         //empty
-                    })
+                    }),
                 ).toBeTruthy();
             });
         });
@@ -289,7 +289,7 @@ describe("Utilities", (): void => {
                         valueOf: function (): number {
                             return 123;
                         },
-                    })
+                    }),
                 ).toBeFalsy();
                 expect(isInteger(Infinity)).toBeFalsy();
                 expect(isInteger(-Infinity)).toBeFalsy();
@@ -365,8 +365,8 @@ describe("Utilities", (): void => {
                         new (function (): void {
                             return;
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        } as any)()
-                    )
+                        } as any)(),
+                    ),
                 ).toBe(true);
                 expect(isObject("")).toBe(false);
                 expect(isObject(123)).toBe(false);
@@ -423,8 +423,8 @@ describe("Utilities", (): void => {
                         new (function (): void {
                             return;
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        } as any)()
-                    )
+                        } as any)(),
+                    ),
                 ).toBe(false);
                 expect(isPrimitive(new Number())).toBe(true);
                 expect(isPrimitive(new String())).toBe(true);

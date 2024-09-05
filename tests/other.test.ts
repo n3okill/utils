@@ -214,7 +214,7 @@ describe("Utilities", (): void => {
                 };
 
                 return Other.deepClonePromise(Promise.resolve(circle), (value: unknown, key?: unknown): unknown =>
-                    key === "oval" ? "triangle" : value
+                    key === "oval" ? "triangle" : value,
                 ).then((val) => {
                     expect((val as typeof circle).forms.oval).toBe("triangle");
                 });
