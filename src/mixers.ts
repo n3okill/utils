@@ -192,10 +192,8 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
             case Type.EnumTypes.Function:
             case Type.EnumTypes.AsyncFunction:
                 return (_source as CallableFunction).bind(null) as unknown as T;
-                break;
             case Type.EnumTypes.Symbol:
                 return Other.cloneSymbol(_source as symbol, transform as (value: symbol) => symbol) as unknown as T;
-                break;
             case Type.EnumTypes.Boolean:
             case Type.EnumTypes.Number:
             case Type.EnumTypes.String:
@@ -262,7 +260,6 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
                 try {
                     Object.defineProperty(cloneObj, name, desc);
                 } catch (err) {
-                    console.error((err as Error).stack);
                     throw new Error(`Error defining descriptor for '${name as string}'`);
                 }
             }

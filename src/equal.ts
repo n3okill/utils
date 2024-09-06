@@ -4,28 +4,6 @@ import * as Type from "./type";
 type EqualFn = (a: any, b: any) => boolean;
 type IsType = (a: unknown) => boolean;
 
-const filterFunction: Array<[IsType, EqualFn]> = [
-    [Type.isArray, equalArray],
-    [Type.isDate, equalDate],
-    [Type.isError, equalError],
-    [Type.isFunctionType, equalFunction],
-    [Type.isMap, equalMap],
-    [Type.isObject, equalObject],
-    [Type.isPrimitive, equalPrimitive],
-    [Type.isRegExp, equalRegExp],
-    [Type.isSet, equalSet],
-    [Type.isTypedArray, equalTypedArray],
-];
-
-function _filterFunction(a: unknown, b: unknown): boolean {
-    for (const [_is, _equal] of filterFunction) {
-        if (_is(a) && _is(b)) {
-            return _equal(a, b);
-        }
-    }
-    return false;
-}
-
 /**
  * Returns the name of the constructor of the argument if it is an object, otherwise returns an empty
  * string
@@ -237,4 +215,26 @@ export function equalTypedArray<T extends NodeJS.TypedArray>(a: T, b: T) {
         }
     }
     return true;
+}
+
+const filterFunction: Array<[IsType, EqualFn]> = [
+    [Type.isArray, equalArray],
+    [Type.isDate, equalDate],
+    [Type.isError, equalError],
+    [Type.isFunctionType, equalFunction],
+    [Type.isMap, equalMap],
+    [Type.isObject, equalObject],
+    [Type.isPrimitive, equalPrimitive],
+    [Type.isRegExp, equalRegExp],
+    [Type.isSet, equalSet],
+    [Type.isTypedArray, equalTypedArray],
+];
+
+function _filterFunction(a: unknown, b: unknown): boolean {
+    for (const [_is, _equal] of filterFunction) {
+        if (_is(a) && _is(b)) {
+            return _equal(a, b);
+        }
+    }
+    return false;
 }

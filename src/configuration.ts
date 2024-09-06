@@ -20,6 +20,29 @@ function getNameParts(names: Array<string>): Array<string> {
 }
 
 /**
+ * Return the value of a property in the object
+ * @param obj The object to search for the property
+ * @param {string | Array<string>} name The name of the property can be on the form "a.b.c[1].d"
+ * @param defaultValue Default value to be returned if the property don't exist
+ * @returns {any} Value of the property or defaultValue
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getProperty(obj: any, name: string | Array<string>, defaultValue?: any): any {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    let o = obj;
+    if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
+        return o[name];
+    }
+    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
+    while (o && parts.length) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+        o = o[parts.shift()!];
+    }
+    return parts.length === 0 ? o : defaultValue !== undefined ? defaultValue : undefined;
+}
+
+/**
  * Return true if a property in the given object is not undefined
  * @param obj Object where to search for the property
  * @param name The name of the property can be on the form "a.b.c[1].d"
@@ -62,28 +85,7 @@ export function hasProperty(obj: any, name: string | Array<string>): boolean {
     return parts.length === 0;
 }
 
-/**
- * Return the value of a property in the object
- * @param obj The object to search for the property
- * @param {string | Array<string>} name The name of the property can be on the form "a.b.c[1].d"
- * @param defaultValue Default value to be returned if the property don't exist
- * @returns {any} Value of the property or defaultValue
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getProperty(obj: any, name: string | Array<string>, defaultValue?: any): any {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    let o = obj;
-    if (Type.isString(name) && o && Object.prototype.hasOwnProperty.call(o, name)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, security/detect-object-injection
-        return o[name];
-    }
-    const parts: Array<string> = getNameParts(Type.isString(name) ? name.split(".") : name);
-    while (o && parts.length) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-        o = o[parts.shift()!];
-    }
-    return parts.length === 0 ? o : defaultValue !== undefined ? defaultValue : undefined;
-}
+
 
 /**
  * Set a property in an object
