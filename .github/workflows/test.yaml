@@ -1,6 +1,9 @@
 name: Utils Tests and code analysis
 
-on: [workflow_call]
+on:     
+    push:
+        branches-ignore:
+            - master
 
 jobs:
     test:
