@@ -1,13 +1,9 @@
-name: Npm Publish Utils
+name: Codacy Security Scan Utils
 
-on:
+on: 
     push:
-        branches:
+        branches-ignore:
             - master
-        tags:
-            - v*
-
-permissions: read-all
 
 jobs:
     tests:
@@ -39,17 +35,3 @@ jobs:
               uses: github/codeql-action/upload-sarif@main
               with:
                   sarif_file: results.sarif
-    publish:
-        name: publish
-        needs: [tests, codacy-security-scan]
-        runs-on: ubuntu-latest
-        if: startsWith(github.ref, 'refs/tags/v')
-        steps:
-            - uses: actions/checkout@main
-            - uses: actions/setup-node@main
-              with:
-                  node-version: 20
-                  registry-url: "https://registry.npmjs.org"
-            - run: npm publish --provenance --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
