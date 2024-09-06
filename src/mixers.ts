@@ -259,6 +259,7 @@ export function clone<T>(source: T, deep: boolean = false, transform?: Transform
                 }
                 try {
                     Object.defineProperty(cloneObj, name, desc);
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 } catch (err) {
                     throw new Error(`Error defining descriptor for '${name as string}'`);
                 }
