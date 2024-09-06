@@ -8,19 +8,6 @@ on:
 permissions: read-all
 
 jobs:
-    codacy-security-scan:
-        permissions:
-            contents: read # for actions/checkout to fetch code
-            security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-        name: Codacy Security Scan
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@main
-
-            - name: Run Codacy Analysis CLI
-              uses: codacy/codacy-analysis-cli-action@master
-
     test:
         strategy:
             matrix:
@@ -36,3 +23,17 @@ jobs:
                   cache: npm
             - run: npm install
             - run: npm test
+    codacy-security-scan:
+        needs: test
+        permissions:
+            contents: read # for actions/checkout to fetch code
+            security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+        name: Codacy Security Scan
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@main
+
+            - name: Run Codacy Analysis CLI
+              uses: codacy/codacy-analysis-cli-action@master
+
