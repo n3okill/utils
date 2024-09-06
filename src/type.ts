@@ -97,6 +97,16 @@ export function is(arg1: unknown, arg2: unknown): boolean {
 }
 
 /**
+ * Check if argument is of the kind
+ * @param arg
+ * @param {string} kind Kind to match the type
+ * @returns {boolean}
+ */
+export function isKind(arg: unknown, kind: string): boolean {
+    return kindOf(arg).toLowerCase() === kind.toLowerCase();
+}
+
+/**
  * Check if argument is an array
  * @param arg
  * @returns {boolean}
@@ -358,15 +368,7 @@ export function isInteger(arg: unknown): arg is number {
     return isNumber(arg) && arg % 1 === 0;
 }
 
-/**
- * Check if argument is of the kind
- * @param arg
- * @param {string} kind Kind to match the type
- * @returns {boolean}
- */
-export function isKind(arg: unknown, kind: string): boolean {
-    return kindOf(arg).toLowerCase() === kind.toLowerCase();
-}
+
 
 /**
  * Check if two arguments are of same type

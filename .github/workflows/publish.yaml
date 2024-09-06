@@ -1,41 +1,16 @@
 name: Npm Publish Utils
 
-on: 
+on:
     push:
-       branches:
-          - master
+        branches:
+            - master
+        tags:
+            - v*
 
-permissions: read-all 
+permissions: read-all
 
 jobs:
-    codacy-security-scan:
-        permissions:
-            contents: read # for actions/checkout to fetch code
-            security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-        name: Codacy Security Scan
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@main
-
-            - name: Run Codacy Analysis CLI
-              uses: codacy/codacy-analysis-cli-action@master
-              with:
-                output: results.sarif
-                format: sarif
-                # Adjust severity of non-security issues
-                gh-code-scanning-compat: true
-                # Force 0 exit code to allow SARIF file generation
-                # This will handover control about PR rejection to the GitHub side
-                max-allowed-issues: 2147483647
-
-            # Upload the SARIF file generated in the previous step
-            - name: Upload SARIF results file
-              uses: github/codeql-action/upload-sarif@main
-              with:
-                    sarif_file: results.sarif
-
-    test:
+    tests:
         strategy:
             matrix:
                 node: [18, 20, 22]
@@ -46,21 +21,21 @@ jobs:
             - name: Use node ${{ matrix.node }}
               uses: actions/setup-node@main
               with:
-                node-version: ${{ matrix.node }}
-                cache: npm
+                    node-version: ${{ matrix.node }}
+                    cache: npm
             - run: npm install
             - run: npm test
-
     publish:
-        needs: test
+        name: publish
+        needs: [tests]
         runs-on: ubuntu-latest
+        if: startsWith(github.ref, 'refs/tags/v')
         steps:
             - uses: actions/checkout@main
             - uses: actions/setup-node@main
               with:
                   node-version: 20
-            - run: npm install
-            - run: npm test
-            - uses: JS-DevTools/npm-publish@main
-              with:
-                  token: ${{ secrets.NPM_TOKEN }}
+                  registry-url: "https://registry.npmjs.org"
+            - run: npm publish --provenance --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

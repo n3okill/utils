@@ -1,3 +1,4 @@
+/* global BufferEncoding */
 import { sep as Separator } from "path";
 import * as StringUtil from "./string_util.js";
 
@@ -39,28 +40,6 @@ function _toString(arg: string | Buffer): string {
  */
 export function isEmpty(arg: Buffer): boolean {
     return !toString(arg).length;
-}
-
-/**
- * Check if buffer is empty triming withspaces
- */
-export function isEmptyOrWithSpace(arg: Buffer): boolean {
-    return !toString(trim(arg)).length;
-}
-
-/**
- * Repeat a given string or buffer a number of times
- * @param str String or buffer that will be repeated
- * @param n Number of times to repeat the given string
- * @return The given string or buffer repeated n times
- */
-export function repeat(str: string | Buffer, n: number): Buffer {
-    if (Buffer.isBuffer(str)) {
-        const encoding = detectEncoding(str);
-        return Buffer.from(StringUtil.repeat(toString(str), n), encoding);
-    } else {
-        return Buffer.from(StringUtil.repeat(str, n), "utf8");
-    }
 }
 
 /**
@@ -106,6 +85,30 @@ export function trimRight(s: Buffer, chars: Array<string | Buffer> = []): Buffer
 export function trim(str: Buffer, chars: Array<string | Buffer> = []): Buffer {
     return trimLeft(trimRight(str, chars), chars);
 }
+
+/**
+ * Check if buffer is empty triming withspaces
+ */
+export function isEmptyOrWithSpace(arg: Buffer): boolean {
+    return !toString(trim(arg)).length;
+}
+
+/**
+ * Repeat a given string or buffer a number of times
+ * @param str String or buffer that will be repeated
+ * @param n Number of times to repeat the given string
+ * @return The given string or buffer repeated n times
+ */
+export function repeat(str: string | Buffer, n: number): Buffer {
+    if (Buffer.isBuffer(str)) {
+        const encoding = detectEncoding(str);
+        return Buffer.from(StringUtil.repeat(toString(str), n), encoding);
+    } else {
+        return Buffer.from(StringUtil.repeat(str, n), "utf8");
+    }
+}
+
+
 
 /**
  * Replace multiple occurrences in a Buffer
