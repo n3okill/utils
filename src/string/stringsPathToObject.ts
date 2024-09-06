@@ -1,5 +1,5 @@
 import * as NodePath from "path";
-import { isUndefined } from '../type';
+import { isUndefined } from "../type";
 /**
  * Transforms an array of strings into an object
  * @param  str Array of strings to be transformed
