@@ -9,6 +9,7 @@ import { isNumeric } from "../type/isNumeric";
  * @returns {Array<string>}
  * @internal
  */
+/*eslint complexity: ["error", 15]*/
 export function rangeString(start: string, end: string, step: number = 1): Array<string> {
     const result: Array<string> = [];
     const s = toNumeric(start);
@@ -18,6 +19,7 @@ export function rangeString(start: string, end: string, step: number = 1): Array
     const reg = /^-?0\d/;
     const pad = reg.test(start) || reg.test(end);
     const isReverse = e < s;
+
     if (isReverse) {
         step *= -1;
     }

@@ -1,4 +1,5 @@
-import * as NodePath from 'path';
+import * as NodePath from "path";
+import { isUndefined } from '../type';
 /**
  * Transforms an array of strings into an object
  * @param  str Array of strings to be transformed
@@ -13,7 +14,7 @@ export function stringsPathToObject(str: string[], separator: string = NodePath.
         let o: { [key: string]: unknown } = res;
         parts.forEach((p: string): void => {
             // eslint-disable-next-line security/detect-object-injection
-            o[p] = o[p] !== undefined ? o[p] : {};
+            o[p] = !isUndefined(o[p]) ? o[p] : {};
             // eslint-disable-next-line security/detect-object-injection
             o = o[p] as { [key: string]: unknown };
         });

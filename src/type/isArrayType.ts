@@ -1,3 +1,5 @@
+/* global NodeJS */
+
 import { isArray } from "./isArray.js";
 import { isTypedArray } from "./isTypedArray.js";
 

@@ -1,6 +1,6 @@
 import { toString } from "./toString";
 import { detectEncoding } from "./detectEncoding";
-import { balancedData as balancedDataString } from '../string/balancedData';
+import { balancedData as balancedDataString } from "../string/balancedData";
 
 /**
  * Interface that defines the properties of a chunk of balanced data in a string

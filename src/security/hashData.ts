@@ -1,4 +1,4 @@
-import * as NodeCrypto from 'crypto';
+import * as NodeCrypto from "crypto";
 
 /**
  * Prefixes data with a keyed hash value so that it can later be detected if it is tampered.

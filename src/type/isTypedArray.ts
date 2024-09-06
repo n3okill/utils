@@ -1,3 +1,5 @@
+/* global NodeJS */
+
 import { TypedArrayTypes } from "./_types";
 import { kindOf } from "./kindOf";
 

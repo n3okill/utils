@@ -1,5 +1,5 @@
 import { multiReplace } from "../string/multiReplace";
-import * as NodeCrypto from 'crypto';
+import * as NodeCrypto from "crypto";
 
 /**
  * Generate random base64 key

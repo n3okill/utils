@@ -1,5 +1,5 @@
-import * as NodePath from 'path';
-import { isObject } from '../type/isObject';
+import * as NodePath from "path";
+import { isObject } from "../type/isObject";
 
 /**
  * Transforms an object into an array of strings

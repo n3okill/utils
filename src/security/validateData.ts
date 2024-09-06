@@ -1,4 +1,4 @@
-import * as NodeCrypto from 'crypto';
+import * as NodeCrypto from "crypto";
 
 /**
  * Validates if the given data is tampered.

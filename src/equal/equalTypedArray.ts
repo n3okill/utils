@@ -1,3 +1,5 @@
+/* global NodeJS */
+
 import { equal } from "./equal";
 
 /**

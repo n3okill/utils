@@ -1,3 +1,5 @@
+/* global NodeJS */
+
 import { _checkTransform, TransformFunctionType } from "../_internal";
 import { cloneBuffer } from "../other/cloneBuffer";
 import { cloneDate } from "../other/cloneDate";

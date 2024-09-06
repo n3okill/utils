@@ -1,3 +1,4 @@
+/* global BufferEncoding */
 /**
  * Detects buffer enconding
  * This is basic helper that will only detect buffer encoding between `utf8` and `utf16le`

@@ -1,3 +1,5 @@
+/* global BufferEncoding */
+
 import { detectEncoding } from "./detectEncoding";
 
 /**

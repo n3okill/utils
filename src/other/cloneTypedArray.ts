@@ -1,3 +1,5 @@
+/* global NodeJS */
+
 import { _checkTransform, TransformFunctionType } from "../_internal";
 import { TypedArrayConstructor } from "../type/_types";
 

@@ -1,12 +1,15 @@
+import { isNull } from "./isNull";
+import { isUndefined } from "./isUndefined";
+
 /**
  * Return a string with the type of the object
  * @param arg
  * @returns {string}
  */
 export function kindOf(arg: unknown): string {
-    return arg === null
+    return isNull(arg)
         ? "null"
-        : arg === undefined
+        : isUndefined(arg)
             ? "undefined"
             : (/^\[object (.*)]$/.exec(Object.prototype.toString.call(arg)) as RegExpExecArray)[1];
 }

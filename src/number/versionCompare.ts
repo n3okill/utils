@@ -1,3 +1,4 @@
+import { isUndefined } from "../type";
 import { convertToNumber } from "./convertToNumber";
 
 /**
@@ -30,19 +31,19 @@ export function versionCompare(v1: string, v2: string): number {
     const length = Math.max(arr1.length, arr2.length);
     for (let i = 0; i < length; i++) {
         // eslint-disable-next-line security/detect-object-injection
-        if (i === 3 && (arr1[i] === undefined || arr2[i] === undefined)) {
+        if (i === 3 && (isUndefined(arr1[i]) || isUndefined(arr2[i]))) {
             // eslint-disable-next-line security/detect-object-injection
-            if (arr1[i] === undefined && isNaN(arr2[i] as number)) {
+            if (isUndefined(arr1[i]) && isNaN(arr2[i] as number)) {
                 return 1;
                 // eslint-disable-next-line security/detect-object-injection
-            } else if (isNaN(arr1[i] as number) && arr2[i] === undefined) {
+            } else if (isNaN(arr1[i] as number) && isUndefined(arr2[i])) {
                 return -1;
             }
         }
         // eslint-disable-next-line security/detect-object-injection
-        if (arr1[i] === undefined || arr2[i] === undefined) {
+        if (isUndefined(arr1[i]) || isUndefined(arr2[i])) {
             // eslint-disable-next-line security/detect-object-injection
-            return arr1[i] === undefined ? -1 : 1;
+            return isUndefined(arr1[i]) ? -1 : 1;
         }
 
         // eslint-disable-next-line security/detect-object-injection
