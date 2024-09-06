@@ -1,8 +1,10 @@
-import { isFunction } from "./type.js";
+
 
 /**
  * @internal
  */
+
+import { isFunction } from "./type/isFunction";
 
 export type TransformFunctionType = <T>(value: T, key?: unknown) => T;
 
