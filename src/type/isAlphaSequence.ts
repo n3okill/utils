@@ -1,6 +1,5 @@
 import { isSequence } from "./isSequence";
 
-
 /**
  * Check if argument is a alpha sequence of type a..z or as defined by regex argument
  * @param arg

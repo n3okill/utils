@@ -1,8 +1,7 @@
 import { detectEncoding } from "./detectEncoding";
 import { toString } from "./toString";
-import { trimLeft as trimLeftString  } from "../string/trimLeft";
+import { trimLeft as trimLeftString } from "../string/trimLeft";
 import { _toString } from "./_internal";
-
 
 /**
  * Remove given characters from the left side of the buffer

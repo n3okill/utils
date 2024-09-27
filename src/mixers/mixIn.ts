@@ -8,10 +8,10 @@ import { mixInOne } from "./mixInOne";
  * @returns Return the target object with other arguments merged into it
  */
 export function mixIn<T>(target: T, ...args: Array<T>): T {
-    args.forEach((arg): void => {
-        if (!isNullOrUndefined(arg)) {
-            mixInOne(target, arg);
+    for (const obj of args) {
+        if (!isNullOrUndefined(obj)) {
+            mixInOne(target, obj);
         }
-    });
+    }
     return target;
 }

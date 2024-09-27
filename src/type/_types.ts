@@ -1,7 +1,6 @@
 export type TObjectKey = string | symbol | number;
 export type TObject = Record<TObjectKey, unknown>;
 
-
 export type TypedArrayConstructor =
     | Int8ArrayConstructor
     | Uint8ArrayConstructor
@@ -62,4 +61,3 @@ export const TypedArrayTypes: string[] = [
     "BigInt64Array",
     "BigUint64Array",
 ];
-

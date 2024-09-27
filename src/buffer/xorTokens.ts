@@ -11,8 +11,5 @@ import { xorTokens as xorTokensString } from "../string/xorTokens";
  */
 export function xorTokens(token1: Buffer, token2: Buffer): Buffer {
     const encoding = detectEncoding(token1);
-    return Buffer.from(
-        xorTokensString(toString(token1, encoding), toString(token2, detectEncoding(token2))),
-        encoding,
-    );
+    return Buffer.from(xorTokensString(toString(token1, encoding), toString(token2, detectEncoding(token2))), encoding);
 }

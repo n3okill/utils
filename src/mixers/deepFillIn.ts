@@ -11,12 +11,21 @@ import { Spread } from "./_internal";
  * @returns The first object filled with the new properties
  */
 export function deepFillIn<A extends object[]>(...args: [...A]): Spread<A> {
-    let target: any;
-    do {
-        target = args.shift();
-    } while (!target && args.length);
+    if (args.length === 0) return {} as Spread<A>;
+    const target: any = args.shift();
+    for (const obj of args) {
+        for (const [key, value] of Object.entries(obj)) {
+            if (!Object.prototype.hasOwnProperty.call(target, key)) {
+                // eslint-disable-next-line security/detect-object-injection
+                target[key] = value;
+            } else if (isPlainObject(target) && isPlainObject(value)) {
+                // eslint-disable-next-line security/detect-object-injection
+                deepFillIn(target[key], value);
+            }
+        }
+    }
 
-    args.forEach((obj): void => {
+    /*args.forEach((obj): void => {
         Object.keys(obj).forEach((key): void => {
             if (!Object.prototype.hasOwnProperty.call(target, key)) {
                 // eslint-disable-next-line security/detect-object-injection
@@ -27,7 +36,6 @@ export function deepFillIn<A extends object[]>(...args: [...A]): Spread<A> {
                 deepFillIn(target[key], (obj as any)[key]);
             }
         });
-    });
+    });*/
     return target as Spread<A>;
 }
-

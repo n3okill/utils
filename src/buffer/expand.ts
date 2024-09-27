@@ -2,7 +2,6 @@ import { detectEncoding } from "./detectEncoding";
 import { toString } from "./toString";
 import { expand as expandString } from "../string/expand";
 
-
 /**
  * Options for string expand
  */
@@ -11,7 +10,6 @@ export interface IExpandOpts {
     close?: string;
     separator?: string;
 }
-
 
 /**
  * Return an expanded Buffer based on input Buffer and options
@@ -38,7 +36,7 @@ export function expand(
         open: "{",
         close: "}",
         separator: ",",
-    }
+    },
 ): Buffer[] {
     const encoding = detectEncoding(input);
     return expandString(toString(input, encoding), options).map((s) => Buffer.from(s, encoding));

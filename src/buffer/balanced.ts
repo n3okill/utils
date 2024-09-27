@@ -1,4 +1,4 @@
-import {toString} from "../string/toString";
+import { toString } from "../string/toString";
 import { balanced as balancedString } from "../string/balanced";
 
 /**

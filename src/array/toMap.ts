@@ -11,15 +11,15 @@ import { isObject } from "../type/isObject";
 export function toMap(
     arg: TObject | Array<[unknown, unknown]> | Map<unknown, unknown>,
 ): Map<unknown, unknown> | undefined {
-    if(isMap(arg)) {
-      return arg;
+    if (isMap(arg)) {
+        return arg;
     }
-    if(isObject(arg)) {
-      // eslint-disable-next-line security/detect-object-injection
-      return new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]));
+    if (isObject(arg)) {
+        // eslint-disable-next-line security/detect-object-injection
+        return new Map(Object.keys(arg).map((k): [unknown, unknown] => [k, (arg as { [key: string]: unknown })[k]]));
     }
-    if(isArray(arg)) {
-      return new Map(arg as Array<[unknown, unknown]>);
+    if (isArray(arg)) {
+        return new Map(arg as Array<[unknown, unknown]>);
     }
     return undefined;
 }

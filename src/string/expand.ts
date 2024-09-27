@@ -15,7 +15,6 @@ export interface IExpandOpts {
     separator?: string;
 }
 
-
 /**
  * Return an expanded string based on input string and options
  * @param input

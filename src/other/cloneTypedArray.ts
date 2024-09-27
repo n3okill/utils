@@ -14,8 +14,8 @@ export function cloneTypedArray<T>(origin: NodeJS.TypedArray, transform?: (value
         new ((origin as unknown as NodeJS.TypedArray).constructor as TypedArrayConstructor)(
             origin.buffer,
             origin.byteOffset,
-            origin.length
+            origin.length,
         ),
-        transform as TransformFunctionType
+        transform as TransformFunctionType,
     );
 }

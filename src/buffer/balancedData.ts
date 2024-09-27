@@ -13,8 +13,6 @@ export interface BalancedDataBuffer {
     post: Buffer;
 }
 
-
-
 /**
  * Return a Array<BalancedDataBuffer> mapping the chunks of 'open' and 'close' locations, if input buffer is unbalanced will return empty
  * @param input Buffer

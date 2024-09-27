@@ -1,4 +1,3 @@
-
 /**
  * Repeat a given string a number of times
  * @param str String that will be repeated

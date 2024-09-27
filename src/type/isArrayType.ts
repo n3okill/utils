@@ -3,7 +3,6 @@
 import { isArray } from "./isArray.js";
 import { isTypedArray } from "./isTypedArray.js";
 
-
 /**
  * Check if argument is Array or TypedArray
  * @param arg

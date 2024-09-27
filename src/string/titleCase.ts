@@ -13,7 +13,7 @@ export function titleCase(name: string, ucwords: boolean = true): string {
     str = str.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
     return ucwords
         ? str.replace(/([ -_.]|^)(.)/g, function (allMatches, firstMatch, secondMatch: string): string {
-            return (firstMatch ? " " : "") + secondMatch.toUpperCase();
-        })
+              return (firstMatch ? " " : "") + secondMatch.toUpperCase();
+          })
         : str;
 }

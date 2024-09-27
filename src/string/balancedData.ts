@@ -1,8 +1,6 @@
 import { balanced } from "./balanced.js";
 import { isArray } from "../type/isArray.js";
 
-
-
 /**
  * Interface that defines the properties of a chunk of balanced data in a string
  */
@@ -13,8 +11,6 @@ export interface BalancedData {
     pre: string;
     post: string;
 }
-
-
 
 /**
  * Return 'false' if input string is unbalanced, otherwise returns an array mapping the chunks of 'open' and 'close' locations

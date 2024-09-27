@@ -9,7 +9,7 @@
 export function isEmailFormat(arg: string, matches: boolean = false): boolean | null | string[] {
     return matches
         ? // eslint-disable-next-line security/detect-unsafe-regex
-        /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.exec(arg)
+          /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.exec(arg)
         : // eslint-disable-next-line security/detect-unsafe-regex
-        /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.test(arg);
+          /^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,15}$/i.test(arg);
 }

@@ -12,7 +12,6 @@ import { toString } from "./toString";
  */
 export type Replacefunction = (substring: string, ...args: unknown[]) => string;
 
-
 /**
  * Replace multiple occurrences in a string
  * @param str

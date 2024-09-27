@@ -4,11 +4,7 @@
  * @param source The object to merge
  */
 export function mixInOne<T>(target: T, source: T): void {
-    return Object.getOwnPropertyNames(source).forEach(
-        (property: string): void => Object.defineProperty(
-            target,
-            property,
-            Object.getOwnPropertyDescriptor(source, property) as PropertyDescriptor
-        ) as unknown as void
-    );
+    for (const key of Object.getOwnPropertyNames(source)) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key) as PropertyDescriptor);
+    }
 }

@@ -1,6 +1,5 @@
 import { isKind } from "./isKind";
 
-
 /**
  * Check if argument is Int8Array
  * @param arg

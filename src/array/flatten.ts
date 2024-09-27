@@ -1,4 +1,3 @@
-
 /**
  * @internal
  * @param {Array<Array<T> | T>} arr

@@ -1,7 +1,6 @@
 import { escapeRegExp } from "./escapeRegExp";
 import { toString } from "./toString";
 
-
 /**
  * Remove given characters from right side of the string
  * @param s String to remove the characters from

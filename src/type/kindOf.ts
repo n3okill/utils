@@ -10,6 +10,6 @@ export function kindOf(arg: unknown): string {
     return isNull(arg)
         ? "null"
         : isUndefined(arg)
-            ? "undefined"
-            : (/^\[object (.*)]$/.exec(Object.prototype.toString.call(arg)) as RegExpExecArray)[1];
+          ? "undefined"
+          : (/^\[object (.*)]$/.exec(Object.prototype.toString.call(arg)) as RegExpExecArray)[1];
 }
