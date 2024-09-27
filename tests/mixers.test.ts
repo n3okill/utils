@@ -99,8 +99,8 @@ describe("Utilities", (): void => {
                 const target = {
                     foo: { bar: "a" },
                 };
-                Mixers.deepMixIn(target, { foo: { bar: "b" } });
-                expect(target.foo.bar).toBe("b");
+                Mixers.deepMixIn(target, { foo: { bar: "b" } }, { foo: { bar: "c" } });
+                expect(target.foo.bar).toBe("c");
             });
             test("should keep original child objects", (): void => {
                 const foo = { foo: true };
@@ -248,7 +248,8 @@ describe("Utilities", (): void => {
                 const obj2 = { a: { c: 2 } };
                 const out = Mixers.merge(obj1, obj2);
                 expect(out).toEqual({ a: { b: 1, c: 2 } });
-                expect(out.a).toBe(obj1.a);
+                expect(out.a).not.toBe(obj1.a);
+                expect(out.a).toEqual({ b: 1, c: 2 });
                 expect(out.a).not.toBe(obj2.a);
             });
             test("should not deep clone arrays during merge", (): void => {
@@ -256,9 +257,9 @@ describe("Utilities", (): void => {
                 const obj2 = { b: [5, 6] };
                 const out = Mixers.merge(obj1, obj2);
                 expect(out.a).toEqual([1, 2, [3, 4]]);
-                expect(out.a).toBe(obj1.a);
+                expect(out.a).not.toBe(obj1.a);
                 expect(out.a[2]).toEqual([3, 4]);
-                expect(out.a[2]).toBe(obj1.a[2]);
+                expect(out.a[2]).toEqual(obj1.a[2]);
                 expect(out.b).toEqual(obj2.b);
             });
         });
