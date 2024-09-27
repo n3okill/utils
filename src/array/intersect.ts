@@ -1,6 +1,5 @@
 import { isArrayType } from "../type/isArrayType";
 
-
 /**
  * Return the intersection between arrays
  * @param args Multiple arrays to intersect

@@ -9,8 +9,8 @@ import { isObject } from "./isObject";
 import { isSet } from "./isSet";
 import { isString } from "./isString";
 import { isEmpty as isEmptyString } from "../string/isEmpty";
-import { isEmpty as isEmptyArray} from "../array/isEmpty";
-import { isEmpty as isEmptyObject} from "../object/isEmpty";
+import { isEmpty as isEmptyArray } from "../array/isEmpty";
+import { isEmpty as isEmptyObject } from "../object/isEmpty";
 
 /**
  * Check if argument is empty

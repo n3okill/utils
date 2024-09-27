@@ -33,20 +33,20 @@ describe("Utilities", (): void => {
                 expect(StringUtil.toString([1, 2, 3])).toBe("1,2,3");
             });
         });
-        describe("> isEmpty", (): void =>{
-            test("should return empty true",(): void =>{
+        describe("> isEmpty", (): void => {
+            test("should return empty true", (): void => {
                 expect(StringUtil.isEmpty("")).toBeTruthy();
             });
-            test("should return empty false",():void=>{
+            test("should return empty false", (): void => {
                 expect(StringUtil.isEmpty("not empty")).toBeFalsy();
             });
         });
-        describe("> isEmptyOrWhitespace", (): void =>{
-            test("should return empty true",(): void =>{
+        describe("> isEmptyOrWhitespace", (): void => {
+            test("should return empty true", (): void => {
                 expect(StringUtil.isEmptyOrWithSpace("")).toBeTruthy();
                 expect(StringUtil.isEmptyOrWithSpace("  ")).toBeTruthy();
             });
-            test("should return empty false",():void=>{
+            test("should return empty false", (): void => {
                 expect(StringUtil.isEmpty("not empty")).toBeFalsy();
             });
         });

@@ -6,7 +6,7 @@ import { toString } from "./toString";
  * @param  params Object with items to replace
  * @returns  String with items replaced
  */
-export function formatMessage(str: string, params: { [key: string]: unknown; }): string {
+export function formatMessage(str: string, params: { [key: string]: unknown }): string {
     let s = toString(str);
     for (const key of Object.keys(params)) {
         // eslint-disable-next-line security/detect-non-literal-regexp

@@ -1,7 +1,6 @@
 import { TransformFunctionType } from "../_internal";
 import { clone } from "../mixers/clone";
 
-
 /**
  * Clone map
  * @param {Map} origin

@@ -7,7 +7,7 @@ const EncodeHtmlRules: Record<string, string> = {
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
-    "\"": "&#34;",
+    '"': "&#34;",
     "'": "&#39;",
 };
 

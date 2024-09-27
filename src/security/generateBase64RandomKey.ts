@@ -7,9 +7,5 @@ import * as NodeCrypto from "crypto";
  * @returns Generated key in string format
  */
 export function generateBase64RandomKey(length: number = 32): string {
-    return multiReplace(
-        NodeCrypto.randomBytes(length).toString("base64").substr(0, length),
-        ["+", "/"],
-        ["_", "-"],
-    );
+    return multiReplace(NodeCrypto.randomBytes(length).toString("base64").substr(0, length), ["+", "/"], ["_", "-"]);
 }

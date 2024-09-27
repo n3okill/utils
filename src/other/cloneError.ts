@@ -8,6 +8,6 @@ import { _checkTransform, TransformFunctionType } from "../_internal";
 export function cloneError(origin: Error, transform?: (value: Error) => Error): Error {
     return _checkTransform(
         Reflect.construct(origin.constructor, [origin.message]) as Error,
-        transform as TransformFunctionType
+        transform as TransformFunctionType,
     );
 }

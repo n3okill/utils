@@ -37,7 +37,6 @@ export const filterFunction: Array<[IsType, EqualFn]> = [
     [isTypedArray, equalTypedArray],
 ];
 
-
 export function _filterFunction(a: unknown, b: unknown): boolean {
     for (const [_is, _equal] of filterFunction) {
         if (_is(a) && _is(b)) {

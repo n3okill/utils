@@ -12,7 +12,7 @@ import { toString } from "./toString";
 export function multiReplace(
     str: Buffer,
     search: Array<string | RegExp>,
-    replace: Array<string | Replacefunction> | string | Replacefunction
+    replace: Array<string | Replacefunction> | string | Replacefunction,
 ): Buffer {
     const encoding = detectEncoding(str);
     return Buffer.from(multiReplaceString(toString(str, encoding), search, replace), encoding);
