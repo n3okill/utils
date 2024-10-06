@@ -1,5 +1,5 @@
-import { balanced } from "./balanced.js";
-import { isArray } from "../type/isArray.js";
+import { balanced } from "./balanced";
+import { isArray } from "../type/isArray";
 
 /**
  * Interface that defines the properties of a chunk of balanced data in a string

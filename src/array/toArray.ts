@@ -1,4 +1,4 @@
-import { isArrayType } from "../type/isArrayType.js";
+import { isArrayType } from "../type/isArrayType";
 
 /**
  * Transforms given argument into array

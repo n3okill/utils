@@ -1,10 +1,10 @@
-import { isBigInt } from "./isBigInt.js";
-import { isBoolean } from "./isBoolean.js";
+import { isBigInt } from "./isBigInt";
+import { isBoolean } from "./isBoolean";
 import { isNullOrUndefined } from "./isNullOrUndefined";
 import { isNumber } from "./isNumber";
-import { isSymbol } from "./isSymbol.js";
-import { isString } from "./isString.js";
-import { Primitive } from "./_types.js";
+import { isSymbol } from "./isSymbol";
+import { isString } from "./isString";
+import { Primitive } from "./_types";
 
 /**
  * Check if argument is of primitive type
