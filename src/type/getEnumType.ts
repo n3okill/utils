@@ -12,7 +12,7 @@ import { isNull } from "./isNull";
 import { isNumber } from "./isNumber";
 import { isObject } from "./isObject";
 import { isPlainObject } from "./isPlainObject";
-import { isPromise } from "./isPromise.js";
+import { isPromise } from "./isPromise";
 import { isRegExp } from "./isRegExp";
 import { isSet } from "./isSet";
 import { isString } from "./isString";
