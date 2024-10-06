@@ -1,24 +1,25 @@
-import { EnumTypes } from "./_types.js";
-import { isArray } from "./isArray.js";
-import { isAsyncFunction } from "./isAsyncFunction.js";
-import { isBigInt } from "./isBigInt.js";
-import { isBoolean } from "./isBoolean.js";
-import { isBuffer } from "./isBuffer.js";
-import { isDate } from "./isDate.js";
-import { isError } from "./isError.js";
-import { isFunction } from "./isFunction.js";
-import { isMap } from "./isMap.js";
-import { isNull } from "./isNull.js";
-import { isNumber } from "./isNumber.js";
-import { isObject } from "./isObject.js";
-import { isPlainObject } from "./isPlainObject.js";
-import { isPromise } from "./isPromise.js";
-import { isRegExp } from "./isRegExp.js";
-import { isSet } from "./isSet.js";
-import { isString } from "./isString.js";
-import { isSymbol } from "./isSymbol.js";
-import { isTypedArray } from "./isTypedArray.js";
-import { isUndefined } from "./isUndefined.js";
+import { EnumTypes } from "./_types";
+import { isArray } from "./isArray";
+import { isAsyncFunction } from "./isAsyncFunction";
+import { isBigInt } from "./isBigInt";
+import { isBoolean } from "./isBoolean";
+import { isBuffer } from "./isBuffer";
+import { isDate } from "./isDate";
+import { isError } from "./isError";
+import { isFunction } from "./isFunction";
+import { isMap } from "./isMap";
+import { isNull } from "./isNull";
+import { isNumber } from "./isNumber";
+import { isObject } from "./isObject";
+import { isPlainObject } from "./isPlainObject";
+import { isPromise } from "./isPromise";
+import { isRegExp } from "./isRegExp";
+import { isSet } from "./isSet";
+import { isString } from "./isString";
+import { isSymbol } from "./isSymbol";
+import { isTypedArray } from "./isTypedArray";
+import { isUndefined } from "./isUndefined";
+
 
 /**
  * Return the Enum value of the type of the argument

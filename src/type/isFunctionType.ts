@@ -1,5 +1,5 @@
-import { isAsyncFunction } from "./isAsyncFunction.js";
-import { isFunction } from "./isFunction.js";
+import { isAsyncFunction } from "./isAsyncFunction";
+import { isFunction } from "./isFunction";
 
 /**
  * Check if argument is Function or AsyncFunction

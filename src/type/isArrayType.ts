@@ -1,7 +1,8 @@
 /* global NodeJS */
 
-import { isArray } from "./isArray.js";
-import { isTypedArray } from "./isTypedArray.js";
+import { isArray } from "./isArray";
+import { isTypedArray } from "./isTypedArray";
+
 
 /**
  * Check if argument is Array or TypedArray

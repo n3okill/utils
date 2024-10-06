@@ -1,5 +1,5 @@
-import { isFunction } from "./isFunction.js";
-import { isNullOrUndefined } from "./isNullOrUndefined.js";
+import { isFunction } from "./isFunction";
+import { isNullOrUndefined } from "./isNullOrUndefined";
 
 /**
  * Check if argument is Iterable

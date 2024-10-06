@@ -1,4 +1,4 @@
-import { NumberUtil } from "..";
+import { toNumeric } from "../number/toNumeric";
 import { isAlphaSequence } from "../type/isAlphaSequence";
 import { isNumericSequence } from "../type/isNumericSequence";
 import { rangeString } from "./_internal";
@@ -10,7 +10,7 @@ import { rangeString } from "./_internal";
  */
 export function rangeFromString(str: string): Array<number | string> {
     const parts = str.split(/\.\./);
-    const increment = parts.length === 3 ? Math.abs(NumberUtil.toNumeric(parts[2])) : 1;
+    const increment = parts.length === 3 ? Math.abs(toNumeric(parts[2])) : 1;
     if (!isNumericSequence(str) && !isAlphaSequence(str)) {
         throw new TypeError("Sequence is invalid.");
     }

@@ -1,4 +1,4 @@
-import { isUndefined } from "../type";
+import { isUndefined } from "../type/isUndefined";
 import { convertToNumber } from "./convertToNumber";
 
 /**

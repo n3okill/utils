@@ -7,5 +7,5 @@ import { _checkTransform, TransformFunctionType } from "../_internal";
  * @returns {Buffer}
  */
 export function cloneBuffer(origin: Buffer, transform?: (value: Buffer) => Buffer): Buffer {
-    return _checkTransform(Buffer.from(origin), transform as TransformFunctionType);
+    return _checkTransform(Buffer.from(origin as unknown as string), transform as TransformFunctionType);
 }

@@ -1,4 +1,4 @@
-import { isFunction } from "./isFunction.js";
+import { isFunction } from "./isFunction";
 import { isObject } from "./isObject";
 
 /**
