@@ -1,6 +1,6 @@
 {
   "name": "@n3okill/utils",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Many javascript helpers",
   "publishConfig": {
     "access": "public"
