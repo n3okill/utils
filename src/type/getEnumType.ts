@@ -20,6 +20,7 @@ import { isSymbol } from "./isSymbol";
 import { isTypedArray } from "./isTypedArray";
 import { isUndefined } from "./isUndefined";
 
+
 /**
  * Return the Enum value of the type of the argument
  * @param arg
